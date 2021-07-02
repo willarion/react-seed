@@ -1,0 +1,11 @@
+/dist/**
+/build/**
+/libs/**
+/coverage/**
+/.next/**
+/node_modules/**
+/public/**
+next.config.js
+/src/reportWebVitals.ts
+/src/react-app-env.d.ts
+

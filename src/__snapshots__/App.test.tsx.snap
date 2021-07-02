@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App.tsx 1`] = `
+<BrowserRouter>
+  <Switch>
+    <Route
+      path="/home"
+    >
+      <HomePage />
+    </Route>
+    <Redirect
+      from="*"
+      to="/home"
+    />
+  </Switch>
+</BrowserRouter>
+`;

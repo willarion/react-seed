@@ -1,0 +1,23 @@
+.button {
+  color: white;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+}
+
+.primary {
+  background-color: #1ea7fd;
+
+  &[disabled] {
+    background-color: #e0f5fc;
+  }
+}
+
+.secondary {
+  background-color: #2f4f4f;
+
+  &[disabled] {
+    background-color: #606969;
+  }
+}
