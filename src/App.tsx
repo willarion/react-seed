@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom';
 import { HomePage } from './pages/HomePage/HomePage';
 
+// test comment
+
 export const App: React.FC = () => {
   return (
     <Router>
