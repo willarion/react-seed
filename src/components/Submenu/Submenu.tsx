@@ -6,15 +6,18 @@ export const Submenu: React.FC = ({}) => {
     { name: 'Menu Item', id: 1 },
     { name: 'Menu Item', id: 2 },
     { name: 'Menu Item', id: 3 },
-    { name: 'Menu Item', id: 4 },
+    { name: 'Menu Item', id: 4, active: true },
     { name: 'Menu Item', id: 5 },
   ];
+
+  // function toggleNavBar() {}
 
   return (
     <nav className="navbar navbar-default navbar-top">
       <div className="container">
         <div className="navbar-header">
           <button
+            // onClick={toggleNavBar}
             type="button"
             className="navbar-toggle collapsed"
             data-toggle="collapse"
@@ -29,7 +32,11 @@ export const Submenu: React.FC = ({}) => {
         <div className="collapse navbar-collapse bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
             {menuItems.map((item) => (
-              <MenuItem itemName={item.name} key={item.id} />
+              <MenuItem
+                itemName={item.name}
+                key={item.id}
+                isActive={item?.active}
+              />
             ))}
           </ul>
         </div>
