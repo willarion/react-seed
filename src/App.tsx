@@ -7,15 +7,28 @@ import {
 } from 'react-router-dom';
 import { HomePage } from './pages/HomePage/HomePage';
 import './styles/index.css';
-
-// test comment
+// import { ModalContext, modalActivity } from './context/ModalContext';
 
 export const App: React.FC = () => {
+  // const [isModalVisible, setIsModalVisible] = React.useState('active');
+  //
+  // function toggleModal() {
+  //   setIsModalVisible(!isModalVisible);
+  // }
+  // console.log(modalActivity);
+
   return (
     <Router>
       <Switch>
         <Route path="/home">
-          <HomePage />
+          {/*<ModalContext.Provider value={modalActivity[isModalVisible]}>*/}
+          {/*<div className="testProject">*/}
+          <HomePage
+          // toggleHandler={toggleModal}
+          // isModalVisible={isModalVisible}
+          />
+          {/*</div>*/}
+          {/*</ModalContext.Provider>*/}
         </Route>
         <Redirect from="*" to="/home" />
       </Switch>

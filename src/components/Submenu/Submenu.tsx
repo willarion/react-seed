@@ -119,30 +119,28 @@ export const Submenu: React.FC = () => {
   ];
 
   return (
-    <main className="container main">
-      <aside className="submenu">
-        <SubmenuBlock array={firstBlock} />
-        <SubmenuBlock
-          category={true}
-          categoryName={'Submenu'}
-          array={secondBlock}
-        />
-        <SubmenuBlock
-          category={true}
-          categoryName={'Submenu'}
-          array={thirdBlock}
-        />
-        <SubmenuBlock
-          category={true}
-          categoryName={'Submenu'}
-          array={forthBlock}
-        />
-        <SubmenuBlock
-          category={true}
-          categoryName={'Submenu'}
-          array={fifthBlock}
-        />
-      </aside>
-    </main>
+    <aside className="submenu">
+      <SubmenuBlock array={firstBlock} />
+      <SubmenuBlock
+        category={true}
+        categoryName={'Submenu'}
+        array={secondBlock}
+      />
+      <SubmenuBlock
+        category={true}
+        categoryName={'Submenu'}
+        array={thirdBlock}
+      />
+      <SubmenuBlock
+        category={true}
+        categoryName={'Submenu'}
+        array={forthBlock}
+      />
+      <SubmenuBlock
+        category={true}
+        categoryName={'Submenu'}
+        array={fifthBlock}
+      />
+    </aside>
   );
 };
