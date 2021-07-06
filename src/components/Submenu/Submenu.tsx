@@ -1,46 +1,148 @@
 import React from 'react';
-import { MenuItem } from '../MenuItem/MenuItem';
+import { SubmenuBlock } from '../SubmenuBlock/SubmenuBlock';
 
-export const Submenu: React.FC = ({}) => {
-  const menuItems = [
-    { name: 'Menu Item', id: 1 },
-    { name: 'Menu Item', id: 2 },
-    { name: 'Menu Item', id: 3 },
-    { name: 'Menu Item', id: 4, active: true },
-    { name: 'Menu Item', id: 5 },
+export const Submenu: React.FC = () => {
+  // const SubmenuBlocks = [ БУДУЩИЙ ОБЪКТ ДЛЯ БУДУЩЕГО MAP БЛОКОВ
+  //   {
+  //     firstBlock: [
+  //       {
+  //         id: 1,
+  //         name: 'Submenu item 7d',
+  //         active: false,
+  //       },
+  //       {
+  //         id: 2,
+  //         name: 'Submenu item 5d',
+  //         active: false,
+  //       },
+  //     ],
+  //   },
+  // ];
+  const firstBlock = [
+    {
+      id: 1,
+      name: 'Submenu item 7d',
+      active: false,
+    },
+    {
+      id: 2,
+      name: 'Submenu item 5d',
+      active: false,
+    },
   ];
 
-  // function toggleNavBar() {}
+  const secondBlock = [
+    {
+      id: 1,
+      name: 'Submenu item 7d',
+      active: false,
+    },
+    {
+      id: 2,
+      name: 'Submenu item 5d',
+      active: false,
+    },
+    {
+      id: 3,
+      name: 'Submenu item 5d',
+      active: false,
+    },
+    {
+      id: 4,
+      name: 'More tags',
+      active: false,
+    },
+  ];
+
+  const thirdBlock = [
+    {
+      id: 1,
+      name: 'Submenu item 1d',
+      active: true,
+    },
+    {
+      id: 2,
+      name: 'Submenu item 1',
+      active: false,
+    },
+  ];
+
+  const forthBlock = [
+    {
+      id: 1,
+      name: 'Submenu item 4d',
+      active: false,
+    },
+    {
+      id: 2,
+      name: 'Submenu item 2d',
+      active: false,
+    },
+    {
+      id: 3,
+      name: 'Submenu item1 &amp; Submenu2 2d',
+      active: false,
+    },
+    {
+      id: 4,
+      name: 'Submenu item 7d',
+      active: false,
+    },
+    {
+      id: 5,
+      name: 'Submenu item 1d',
+      active: false,
+    },
+    {
+      id: 6,
+      name: 'Submenu item 1d',
+      active: false,
+    },
+  ];
+
+  const fifthBlock = [
+    {
+      id: 1,
+      name: 'Submenu item 2d',
+      active: false,
+    },
+    {
+      id: 2,
+      name: 'Submenu item 1d',
+      active: false,
+    },
+    {
+      id: 3,
+      name: 'Submenu item 3d',
+      active: false,
+    },
+  ];
 
   return (
-    <nav className="navbar navbar-default navbar-top">
-      <div className="container">
-        <div className="navbar-header">
-          <button
-            // onClick={toggleNavBar}
-            type="button"
-            className="navbar-toggle collapsed"
-            data-toggle="collapse"
-            data-target=".bs-example-navbar-collapse-1"
-          >
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-            <span className="icon-bar" />
-          </button>
-        </div>
-        <div className="collapse navbar-collapse bs-example-navbar-collapse-1">
-          <ul className="nav navbar-nav">
-            {menuItems.map((item) => (
-              <MenuItem
-                itemName={item.name}
-                key={item.id}
-                isActive={item?.active}
-              />
-            ))}
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <main className="container main">
+      <aside className="submenu">
+        <SubmenuBlock array={firstBlock} />
+        <SubmenuBlock
+          category={true}
+          categoryName={'Submenu'}
+          array={secondBlock}
+        />
+        <SubmenuBlock
+          category={true}
+          categoryName={'Submenu'}
+          array={thirdBlock}
+        />
+        <SubmenuBlock
+          category={true}
+          categoryName={'Submenu'}
+          array={forthBlock}
+        />
+        <SubmenuBlock
+          category={true}
+          categoryName={'Submenu'}
+          array={fifthBlock}
+        />
+      </aside>
+    </main>
   );
 };
