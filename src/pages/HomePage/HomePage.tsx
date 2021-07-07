@@ -1,11 +1,18 @@
 import React from 'react';
-import { Button } from '../../components/Button/Button';
+// import { Button } from '../../components/Button/Button';
+import { Header } from '../../components/Header/Header';
+import { Menu } from '../../components/Menu/Menu';
+import { ContainerMain } from '../../components/ContainerMain/ContainerMain';
+import { Submenu } from '../../components/Submenu/Submenu';
 
-export const HomePage: React.FC = () => {
+export const HomePage: React.FC = ({}) => {
   return (
     <section>
-      It works
-      <Button styleType="primary">Ok!</Button>
+      <Header />
+      <Menu />
+      <ContainerMain>
+        <Submenu />
+      </ContainerMain>
     </section>
   );
 };
