@@ -1,21 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const Logo: React.FC = ({}) => {
+interface LogoProps {
+  desktopImage: string;
+  mobileImage: string;
+  to: string;
+}
+
+export const Logo: React.FC<LogoProps> = ({
+  desktopImage,
+  mobileImage,
+  to,
+}) => {
   return (
     <div className="logoBlock">
-      <a href="index.html">
-        <img
-          src="images/logotype.png"
-          alt="logo"
-          className="logo"
-          title="Logo"
-        />
-        <img
-          src="images/logotypeMobile.png"
-          alt="logo"
-          className="logoMobile"
-        />
-      </a>
+      <Link to={to}>
+        <img src={desktopImage} alt="logo" className="logo" title="Logo" />
+        <img src={mobileImage} alt="logo" className="logoMobile" />
+      </Link>
       <span>Page title</span>
     </div>
   );

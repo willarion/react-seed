@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface HeaderBtnProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   buttonType: 'icon-bell' | 'icon-mail';
+  to: string;
 }
 
-export const HeaderBtn: React.FC<HeaderBtnProps> = ({ buttonType }) => {
+export const HeaderBtn: React.FC<HeaderBtnProps> = ({ buttonType, to }) => {
   return (
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a href="#" className="btn btn-sm btn-header">
+    <Link to={to} className="btn btn-sm btn-header">
       <i className={`headerIcon ${buttonType}`} />
-    </a>
+    </Link>
   );
 };

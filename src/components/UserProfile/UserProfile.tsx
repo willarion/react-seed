@@ -1,11 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const UserProfile: React.FC = ({}) => {
+interface UserProfileProps {
+  to: string;
+}
+
+export const UserProfile: React.FC<UserProfileProps> = ({ to }) => {
   return (
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    <a href="#" className="profile">
+    <Link to={to} className="profile">
       <span>User name</span>
-      <img alt="profile" src="images/profilePhoto.png" />
-    </a>
+      {/*TODO get username and image? from context of user*/}
+      <img alt="profile" src="../../images/profilePhoto.png" />
+    </Link>
   );
 };

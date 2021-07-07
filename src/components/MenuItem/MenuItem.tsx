@@ -1,20 +1,27 @@
 import React from 'react';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 interface MenuItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   itemName: string;
-  isActive: boolean | undefined;
+  isActive?: boolean;
+  to: string;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ itemName, isActive }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({
+  itemName,
+  isActive,
+  to,
+}) => {
   return (
     <li>
-      <a
-        href="index.html"
+      <Link
+        to={to}
         title={itemName}
-        className={isActive ? 'active' : ''}
+        className={classNames('', { active: isActive })}
       >
         {itemName}
-      </a>
+      </Link>
     </li>
   );
 };

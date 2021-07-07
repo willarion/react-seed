@@ -1,146 +1,105 @@
 import React from 'react';
 import { SubmenuBlock } from '../SubmenuBlock/SubmenuBlock';
+import { SubmenuItem } from '../SubmenuItem/SubmenuItem';
 
 export const Submenu: React.FC = () => {
-  // const SubmenuBlocks = [ БУДУЩИЙ ОБЪКТ ДЛЯ БУДУЩЕГО MAP БЛОКОВ
-  //   {
-  //     firstBlock: [
-  //       {
-  //         id: 1,
-  //         name: 'Submenu item 7d',
-  //         active: false,
-  //       },
-  //       {
-  //         id: 2,
-  //         name: 'Submenu item 5d',
-  //         active: false,
-  //       },
-  //     ],
-  //   },
-  // ];
-  const firstBlock = [
-    {
-      id: 1,
-      name: 'Submenu item 7d',
-      active: false,
-    },
-    {
-      id: 2,
-      name: 'Submenu item 5d',
-      active: false,
-    },
-  ];
-
-  const secondBlock = [
-    {
-      id: 1,
-      name: 'Submenu item 7d',
-      active: false,
-    },
-    {
-      id: 2,
-      name: 'Submenu item 5d',
-      active: false,
-    },
-    {
-      id: 3,
-      name: 'Submenu item 5d',
-      active: false,
-    },
-    {
-      id: 4,
-      name: 'More tags',
-      active: false,
-    },
-  ];
-
-  const thirdBlock = [
-    {
-      id: 1,
-      name: 'Submenu item 1d',
-      active: true,
-    },
-    {
-      id: 2,
-      name: 'Submenu item 1',
-      active: false,
-    },
-  ];
-
-  const forthBlock = [
-    {
-      id: 1,
-      name: 'Submenu item 4d',
-      active: false,
-    },
-    {
-      id: 2,
-      name: 'Submenu item 2d',
-      active: false,
-    },
-    {
-      id: 3,
-      name: 'Submenu item1 &amp; Submenu2 2d',
-      active: false,
-    },
-    {
-      id: 4,
-      name: 'Submenu item 7d',
-      active: false,
-    },
-    {
-      id: 5,
-      name: 'Submenu item 1d',
-      active: false,
-    },
-    {
-      id: 6,
-      name: 'Submenu item 1d',
-      active: false,
-    },
-  ];
-
-  const fifthBlock = [
-    {
-      id: 1,
-      name: 'Submenu item 2d',
-      active: false,
-    },
-    {
-      id: 2,
-      name: 'Submenu item 1d',
-      active: false,
-    },
-    {
-      id: 3,
-      name: 'Submenu item 3d',
-      active: false,
-    },
-  ];
-
   return (
     <aside className="submenu">
-      <SubmenuBlock array={firstBlock} />
-      <SubmenuBlock
-        category={true}
-        categoryName={'Submenu'}
-        array={secondBlock}
-      />
-      <SubmenuBlock
-        category={true}
-        categoryName={'Submenu'}
-        array={thirdBlock}
-      />
-      <SubmenuBlock
-        category={true}
-        categoryName={'Submenu'}
-        array={forthBlock}
-      />
-      <SubmenuBlock
-        category={true}
-        categoryName={'Submenu'}
-        array={fifthBlock}
-      />
+      <SubmenuBlock>
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 7d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 5d'}
+          isActive={false}
+        />
+      </SubmenuBlock>
+      <SubmenuBlock category={true} categoryName={'Submenu'}>
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 7d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 2d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 4d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'More tags'}
+          isActive={false}
+        />
+      </SubmenuBlock>
+      <SubmenuBlock category={true} categoryName={'Submenu'}>
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 1d'}
+          isActive={true}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 1d'}
+          isActive={false}
+        />
+      </SubmenuBlock>
+      <SubmenuBlock category={true} categoryName={'Submenu'}>
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 4d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 2d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item1 & Submenu2 2d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 7d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 1d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 1d'}
+          isActive={false}
+        />
+      </SubmenuBlock>
+      <SubmenuBlock category={true} categoryName={'Submenu'}>
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 2d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 1d'}
+          isActive={false}
+        />
+        <SubmenuItem
+          to={'index.html'}
+          itemName={'Submenu item 3d'}
+          isActive={false}
+        />
+      </SubmenuBlock>
     </aside>
   );
 };

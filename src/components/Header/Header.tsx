@@ -3,21 +3,20 @@ import { Logo } from '../Logo/Logo';
 import { HeaderBtn } from '../HeaderBtn/HeaderBtn';
 import { UserProfile } from '../UserProfile/UserProfile';
 
-// interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
-//   styleType: 'primary' | 'secondary';
-// }
-// <HeaderProps>
-
 export const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="container">
         <div className="row">
-          <Logo />
+          <Logo
+            to={'index.html'}
+            desktopImage={'images/logotype.png'}
+            mobileImage={'images/logotypeMobile.png'}
+          />
           <div className="header-comp pull-right">
-            <HeaderBtn buttonType={'icon-bell'} />
-            <HeaderBtn buttonType={'icon-mail'} />
-            <UserProfile />
+            <HeaderBtn to={'index.html'} buttonType={'icon-bell'} />
+            <HeaderBtn to={'index.html'} buttonType={'icon-mail'} />
+            <UserProfile to={'index.html'} />
           </div>
         </div>
       </div>
