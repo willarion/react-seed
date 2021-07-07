@@ -10,13 +10,14 @@ export const Header: React.FC = () => {
         <div className="row">
           <Logo
             to={'index.html'}
+            alt={'logo'}
             desktopImage={'images/logotype.png'}
             mobileImage={'images/logotypeMobile.png'}
           />
           <div className="header-comp pull-right">
             <HeaderBtn to={'index.html'} buttonType={'icon-bell'} />
             <HeaderBtn to={'index.html'} buttonType={'icon-mail'} />
-            <UserProfile to={'index.html'} />
+            <UserProfile alt={'userpic'} to={'index.html'} />
           </div>
         </div>
       </div>
