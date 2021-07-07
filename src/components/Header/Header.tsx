@@ -9,6 +9,7 @@ export const Header: React.FC = () => {
       <div className="container">
         <div className="row">
           <Logo
+            pageTitle={'Page title'}
             to={'index.html'}
             alt={'logo'}
             desktopImage={'images/logotype.png'}
