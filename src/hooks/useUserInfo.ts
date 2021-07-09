@@ -10,6 +10,8 @@ function useUserInfo(initialState: LoginState) {
     switch (action.type) {
       case 'save':
         return { ...state, user: action.user as UserProfile | null };
+      case 'delete':
+        return { ...state, user: action.user as UserProfile | null };
       default:
         throw new Error();
     }

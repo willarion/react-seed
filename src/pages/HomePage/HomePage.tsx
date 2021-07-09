@@ -45,7 +45,10 @@ export const HomePage: React.FC = ({}) => {
       <GoogleLogout
         clientId="481156142014-iqr96oii4rvkk5og1eglruv6pdujkof4.apps.googleusercontent.com"
         buttonText="Logout"
-        onLogoutSuccess={() => console.log('success')}
+        onLogoutSuccess={() => {
+          console.log('success');
+          dispatchUserInfo({ type: 'delete', user: null });
+        }}
         onFailure={() => console.log('failure')}
       />
       <Button styleType="primary" onClick={() => console.log(userInfo)}>
