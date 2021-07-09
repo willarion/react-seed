@@ -1,49 +1,47 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { Button } from '../../components/Button/Button';
 import { Header } from '../../components/Header/Header';
 import { Menu } from '../../components/Menu/Menu';
 import { ContainerMain } from '../../components/ContainerMain/ContainerMain';
 import { Submenu } from '../../components/Submenu/Submenu';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import {
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+  GoogleLogout,
+} from 'react-google-login';
+import { UserProfile } from '../../models/UserProfile';
+
+export interface LoginState {
+  user: UserProfile | null;
+}
+
+const initialState: LoginState = { user: null };
+
+function reducer(
+  state: LoginState,
+  action: { type: string; user: unknown },
+): LoginState {
+  switch (action.type) {
+    case 'save':
+      return { ...state, user: action.user as UserProfile | null };
+    default:
+      throw new Error();
+  }
+}
+
+export const CurrentUserContext = createContext<LoginState>(initialState);
 
 export const HomePage: React.FC = ({}) => {
-  //todo smth like that
-  // function getUserProfile() {
-  //   fetch(
-  //     'https://gmail.googleapis.com/gmail/v1/users/anisimova.marina.n@gmail.com/profile',
-  //     {
-  //       headers: {
-  //         authorization:
-  //           'ya29.a0ARrdaM9hTLueKwhc0FFy5PTlGZh2dU_gzjWXiql76PsMVCc7SBg8bqUT4s1CAuX92Gc3CN3bwWH90WFZ0W5aICB8cr7rpvi2oVbgasd2-qvK774mzTZStVYVqu0Rb7YxGlVBsXcPC9W2__7CRZMtfNPYT3Lb',
-  //       },
-  //     },
-  //   )
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //       return Promise.reject(res.status);
-  //     })
-  //     .then((res) => console.log(res));
-  // }
-  const initialState = { userData: {}, isLoaded: false };
+  const [userInfo, dispatchUserInfo] = React.useReducer(reducer, initialState);
 
-  function reducer(
-    state: { userData: unknown; isLoaded: boolean },
-    action: { type: string; user: unknown },
-  ) {
-    switch (action.type) {
-      case 'save':
-        return { userData: action.user, isLoaded: true };
-      default:
-        throw new Error();
-    }
-  }
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-
-  const responseGoogle = (response: unknown) => {
+  const responseGoogle = (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline,
+  ) => {
     console.log(response);
-    dispatch({ type: 'save', user: response });
+    if ('profileObj' in response) {
+      dispatchUserInfo({ type: 'save', user: response.profileObj });
+    }
   };
 
   return (
@@ -52,7 +50,7 @@ export const HomePage: React.FC = ({}) => {
         clientId="481156142014-iqr96oii4rvkk5og1eglruv6pdujkof4.apps.googleusercontent.com"
         buttonText="Login"
         onSuccess={responseGoogle}
-        onFailure={responseGoogle}
+        onFailure={(response) => console.log(response)}
         isSignedIn={true}
       />
       <GoogleLogout
@@ -61,14 +59,16 @@ export const HomePage: React.FC = ({}) => {
         onLogoutSuccess={() => console.log('success')}
         onFailure={() => console.log('failure')}
       />
-      <Button styleType="primary" onClick={() => console.log(state)}>
+      <Button styleType="primary" onClick={() => console.log(userInfo)}>
         Ok!
       </Button>
-      <Header />
-      <Menu />
-      <ContainerMain>
-        <Submenu />
-      </ContainerMain>
+      <CurrentUserContext.Provider value={userInfo}>
+        <Header />
+        <Menu />
+        <ContainerMain>
+          <Submenu />
+        </ContainerMain>
+      </CurrentUserContext.Provider>
     </section>
   );
 };
