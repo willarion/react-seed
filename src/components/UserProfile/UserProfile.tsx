@@ -14,7 +14,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   name,
   src,
 }) => {
-  console.log(name);
   return (
     <Link to={to} className="profile">
       <span>{name}</span>

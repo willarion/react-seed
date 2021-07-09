@@ -7,6 +7,8 @@ import { CurrentUserContext } from '../../pages/HomePage/HomePage';
 export const Header: React.FC = () => {
   const currentUser = React.useContext(CurrentUserContext);
 
+  console.log(currentUser);
+
   return (
     <header className="header">
       <div className="container">

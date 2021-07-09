@@ -1,4 +1,5 @@
-import React, { createContext } from 'react';
+import React from 'react';
+import useUserInfo from '../../hooks/useUserInfo';
 import { Button } from '../../components/Button/Button';
 import { Header } from '../../components/Header/Header';
 import { Menu } from '../../components/Menu/Menu';
@@ -18,22 +19,10 @@ export interface LoginState {
 
 const initialState: LoginState = { user: null };
 
-function reducer(
-  state: LoginState,
-  action: { type: string; user: unknown },
-): LoginState {
-  switch (action.type) {
-    case 'save':
-      return { ...state, user: action.user as UserProfile | null };
-    default:
-      throw new Error();
-  }
-}
-
-export const CurrentUserContext = createContext<LoginState>(initialState);
+export const CurrentUserContext = React.createContext<LoginState>(initialState);
 
 export const HomePage: React.FC = ({}) => {
-  const [userInfo, dispatchUserInfo] = React.useReducer(reducer, initialState);
+  const { userInfo, dispatchUserInfo } = useUserInfo(initialState);
 
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
