@@ -4,14 +4,21 @@ import { Link } from 'react-router-dom';
 interface UserProfileProps {
   to: string;
   alt: string;
+  src?: string;
+  name?: string;
 }
 
-export const UserProfile: React.FC<UserProfileProps> = ({ to, alt }) => {
+export const UserProfile: React.FC<UserProfileProps> = ({
+  to,
+  alt,
+  name,
+  src,
+}) => {
+  console.log(name);
   return (
     <Link to={to} className="profile">
-      <span>User name</span>
-      {/*TODO get username and image? from context of user*/}
-      <img alt={alt} src="../../images/profilePhoto.png" />
+      <span>{name}</span>
+      <img alt={alt} src={src} />
     </Link>
   );
 };
