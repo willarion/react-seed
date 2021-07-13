@@ -15,11 +15,12 @@ import { UserProfile } from '../../models/UserProfile';
 
 export interface LoginState {
   user: UserProfile | null;
+  access: string;
 }
 
-const initialState: LoginState = { user: null };
+const initialState: LoginState = { user: null, access: '' };
 
-export const CurrentUserContext = React.createContext<LoginState>(initialState);
+export const LoginContext = React.createContext<LoginState>(initialState);
 
 export const HomePage: React.FC = ({}) => {
   const { userInfo, dispatchUserInfo } = useUserInfo(initialState);
@@ -27,9 +28,12 @@ export const HomePage: React.FC = ({}) => {
   const responseGoogle = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
   ) => {
-    console.log(response);
     if ('profileObj' in response) {
-      dispatchUserInfo({ type: 'save', user: response.profileObj });
+      dispatchUserInfo({
+        type: 'save',
+        user: response.profileObj,
+        access: response.accessToken,
+      });
     }
   };
 
@@ -40,6 +44,7 @@ export const HomePage: React.FC = ({}) => {
         buttonText="Login"
         onSuccess={responseGoogle}
         onFailure={(response) => console.log(response)}
+        // todo: error handling not in console
         isSignedIn={true}
       />
       <GoogleLogout
@@ -47,20 +52,20 @@ export const HomePage: React.FC = ({}) => {
         buttonText="Logout"
         onLogoutSuccess={() => {
           console.log('success');
-          dispatchUserInfo({ type: 'delete', user: null });
+          dispatchUserInfo({ type: 'delete', user: null, access: '' });
         }}
         onFailure={() => console.log('failure')}
       />
       <Button styleType="primary" onClick={() => console.log(userInfo)}>
         Ok!
       </Button>
-      <CurrentUserContext.Provider value={userInfo}>
+      <LoginContext.Provider value={userInfo}>
         <Header />
         <Menu />
         <ContainerMain>
           <Submenu />
         </ContainerMain>
-      </CurrentUserContext.Provider>
+      </LoginContext.Provider>
     </section>
   );
 };

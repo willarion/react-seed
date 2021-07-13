@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface UserProfileProps {
   to: string;
-  alt: string;
+  alt?: string;
   src?: string;
   name?: string;
 }
