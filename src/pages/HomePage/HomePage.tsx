@@ -12,6 +12,7 @@ import {
   GoogleLogout,
 } from 'react-google-login';
 import { UserProfile } from '../../models/UserProfile';
+import useMessages from '../../hooks/useMessages';
 
 export interface LoginState {
   user: UserProfile | null;
@@ -36,6 +37,9 @@ export const HomePage: React.FC = ({}) => {
       });
     }
   };
+
+  const messages = useMessages(userInfo.access);
+  console.log(messages);
 
   return (
     <section>
