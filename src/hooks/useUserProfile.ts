@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginContext } from '../pages/HomePage/HomePage';
+import { LoginContext } from '../App';
 import { UserProfile } from '../models/UserProfile';
 
 const useUserProfile = (): UserProfile | null => {

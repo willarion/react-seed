@@ -12,6 +12,7 @@ export const PostsContainer: React.FC = ({}) => {
       {messages.map((message) => (
         <Post
           key={message.id}
+          id={message.id}
           user={message.from}
           title={message.title}
           text={message.text}

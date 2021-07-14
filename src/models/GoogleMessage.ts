@@ -6,5 +6,10 @@ export interface GoogleMessage {
       name: string;
       value: string;
     }[];
+    parts: {
+      body: {
+        data?: string;
+      };
+    }[];
   };
 }

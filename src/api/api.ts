@@ -20,7 +20,7 @@ const getMessages = async (
 };
 
 const getMessageContent = async (
-  id: string,
+  id: string | unknown,
   authToken: string,
 ): Promise<GoogleMessage> => {
   const { data } = await axios.get(
@@ -41,7 +41,7 @@ const getMessagesList = async (
   return result
     .filter((item) => item.status === 'fulfilled')
     .map((item) => (item as PromiseFulfilledResult<GoogleMessage>).value)
-    .map(getUsefulMessageFields);
+    .map((item) => getUsefulMessageFields(item, true));
 };
 
-export { getMessagesList };
+export { getMessagesList, getMessageContent };
