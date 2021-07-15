@@ -35,17 +35,19 @@ export const App: React.FC = () => {
     }
   };
 
+  console.log(userInfo);
+
   return (
     <>
       <GoogleLogin
-        clientId="481156142014-iqr96oii4rvkk5og1eglruv6pdujkof4.apps.googleusercontent.com"
+        clientId="147878676411-95aop538n11aebo4q32ladoailtgqrb2.apps.googleusercontent.com"
         buttonText="Login"
         onSuccess={responseGoogle}
         onFailure={(response) => console.log(response)}
         // todo: error handling not in console
       />
       <GoogleLogout
-        clientId="481156142014-iqr96oii4rvkk5og1eglruv6pdujkof4.apps.googleusercontent.com"
+        clientId="147878676411-95aop538n11aebo4q32ladoailtgqrb2.apps.googleusercontent.com"
         buttonText="Logout"
         onLogoutSuccess={() => {
           console.log('success');

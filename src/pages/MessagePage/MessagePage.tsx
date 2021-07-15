@@ -5,7 +5,7 @@ import { getMessageContent } from '../../api/api';
 import useAuthToken from '../../hooks/useAuthToken';
 import { getUsefulMessageFields } from '../../utils/getUsefulMessageFields';
 import { Post } from '../../components/Post/Post';
-import { MessageToRender } from '../../models/MessageToRender';
+import { UserMessage } from '../../models/UserMessage';
 import './MessagePage.css';
 
 export const MessagePage: React.FC = ({}) => {
@@ -13,7 +13,7 @@ export const MessagePage: React.FC = ({}) => {
   const id = location.state;
   const token = useAuthToken();
 
-  const [message, setMessage] = React.useState<MessageToRender | null>(null);
+  const [message, setMessage] = React.useState<UserMessage | null>(null);
 
   React.useEffect(() => {
     if (token !== '') {
