@@ -12,6 +12,7 @@ import {
   GoogleLogout,
 } from 'react-google-login';
 import { UserProfile } from '../../models/UserProfile';
+import { PostsContainer } from '../../components/PostsContainer/PostsContainer';
 
 export interface LoginState {
   user: UserProfile | null;
@@ -45,7 +46,6 @@ export const HomePage: React.FC = ({}) => {
         onSuccess={responseGoogle}
         onFailure={(response) => console.log(response)}
         // todo: error handling not in console
-        isSignedIn={true}
       />
       <GoogleLogout
         clientId="481156142014-iqr96oii4rvkk5og1eglruv6pdujkof4.apps.googleusercontent.com"
@@ -64,6 +64,7 @@ export const HomePage: React.FC = ({}) => {
         <Menu />
         <ContainerMain>
           <Submenu />
+          {userInfo.user && <PostsContainer />}
         </ContainerMain>
       </LoginContext.Provider>
     </section>
