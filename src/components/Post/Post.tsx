@@ -9,10 +9,16 @@ interface PostsProps {
   id: string;
 }
 
-function getProperDate(dateString: string): string {
+const getProperDate = (dateString: string): string => {
+  if (dateString.length === 0) {
+    return '';
+  }
   const date = new Date(dateString);
+  if (date.getDate() !== date.getDate()) {
+    return '';
+  }
   return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-}
+};
 
 export const Post: React.FC<PostsProps> = ({
   user,

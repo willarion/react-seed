@@ -1,14 +1,16 @@
 import React from 'react';
 import { getMessagesList } from '../api/api';
-import { MessageToRender } from '../models/MessageToRender';
+import { UserMessage } from '../models/UserMessage';
+import useAuthToken from './useAuthToken';
 
-function useMessages(token: string): Array<any> {
-  const [messages, setMessages] = React.useState<Array<MessageToRender>>([]);
+function useMessages(): Array<UserMessage> {
+  const token = useAuthToken();
+  const [messages, setMessages] = React.useState<Array<UserMessage>>([]);
   React.useEffect(() => {
     getMessagesList(token)
       .then((res) => setMessages(res))
       .catch(() => setMessages([]));
-  }, [token]);
+  }, []);
 
   return messages;
 }
