@@ -5,6 +5,7 @@ import useAuthToken from './useAuthToken';
 
 function useMessages(): Array<UserMessage> {
   const token = useAuthToken();
+
   const [messages, setMessages] = React.useState<Array<UserMessage>>([]);
   React.useEffect(() => {
     getMessagesList(token)

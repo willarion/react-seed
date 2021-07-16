@@ -2,26 +2,24 @@ import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
-interface SubmenuItemProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  itemName: string;
+interface SubmenuItemProps {
+  search?: string;
   isActive?: boolean;
   to: string;
 }
 
 export const SubmenuItem: React.FC<SubmenuItemProps> = ({
-  itemName,
-  isActive,
+  children,
+  search,
   to,
 }) => {
   return (
     <li>
       <Link
-        to={to}
-        title={itemName}
-        className={classNames('', { active: isActive })}
+        to={{ pathname: to, search }}
+        className={classNames('', { active: false })}
       >
-        {itemName}
+        {children}
       </Link>
     </li>
   );

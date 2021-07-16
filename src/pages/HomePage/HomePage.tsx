@@ -13,8 +13,8 @@ export interface LoginState {
 }
 
 export const HomePage: React.FC = ({}) => {
+  ``;
   const user = useUserProfile();
-
   return (
     <section>
       <Header />
