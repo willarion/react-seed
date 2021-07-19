@@ -1,17 +1,21 @@
 import React from 'react';
 import { Post } from '../Post/Post';
 import useMessages from '../../hooks/useMessages';
-import useAuthToken from '../../hooks/useAuthToken';
+import styles from './PostContainer.module.scss';
+import classNames from 'classnames';
+
 //todo import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 
 export const PostsContainer: React.FC = ({}) => {
-  const token = useAuthToken();
-  const messages = useMessages(token);
+  const messages = useMessages();
   return (
-    <section className="postsContainer" style={{ padding: '20px' }}>
+    <section
+      className={classNames('postsContainer', styles.postsContainer_alone)}
+    >
       {messages.map((message) => (
         <Post
           key={message.id}
+          id={message.id}
           user={message.from}
           title={message.title}
           text={message.text}

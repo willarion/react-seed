@@ -1,22 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-interface PostsProps {
-  user: string;
-  title: string;
-  text: string;
-  dateAndTime: string;
+interface PostProps {
+  user?: string;
+  title?: string;
+  text?: string;
+  dateAndTime?: string;
+  id: string;
 }
 
-function getProperDate(dateString: string): string {
+const isValidDate = (date: Date): boolean => {
+  return date instanceof Date;
+};
+
+const getProperDate = (dateString?: string): string => {
+  if (!dateString) {
+    return '';
+  }
   const date = new Date(dateString);
+  if (!isValidDate(date)) {
+    return '';
+  }
   return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-}
+};
 
-export const Post: React.FC<PostsProps> = ({
+export const Post: React.FC<PostProps> = ({
   user,
   text,
   title,
   dateAndTime,
+  id,
 }) => {
   const messageDate = getProperDate(dateAndTime);
   return (
@@ -33,10 +46,16 @@ export const Post: React.FC<PostsProps> = ({
           </div>
         </div>
         <div className="itemName">
-          todo change a to link and path to proper one
-          <a href="index.html" className="media-heading" title="Item title">
+          <Link
+            to={{
+              pathname: '/message',
+              state: id,
+            }}
+            className="media-heading"
+            title={title}
+          >
             {title}
-          </a>
+          </Link>
         </div>
         <p>{text}</p>
       </div>

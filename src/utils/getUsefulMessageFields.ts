@@ -1,23 +1,21 @@
 import { GoogleMessage } from '../models/GoogleMessage';
-import { MessageToRender } from '../models/MessageToRender';
+import { UserMessage } from '../models/UserMessage';
+import { find, head } from 'lodash';
 
-interface Header {
-  name: string;
-  value: string;
-}
-
-export function getUsefulMessageFields(item: GoogleMessage): MessageToRender {
-  function filter(array: Header[], key: string) {
-    const result = array.find((header: Header) => header.name === key);
-    return result?.value || '';
-  }
-
-  const title = filter(item.payload.headers, 'Subject');
-  const date = filter(item.payload.headers, 'Date');
-  const from = filter(item.payload.headers, 'From');
+export function getUsefulMessageFields(
+  item: GoogleMessage,
+  snippetNeeded: boolean,
+): UserMessage {
+  const title = find(item.payload.headers, { name: 'Subject' })?.value;
+  const date = find(item.payload.headers, { name: 'Date' })?.value;
+  const from = find(item.payload.headers, { name: 'From' })?.value;
+  // checking is there anything else except snippet
+  const messageBody = head(item.payload.parts);
+  const fullText = messageBody ? messageBody.body.data : item.snippet;
+  const text = snippetNeeded ? item.snippet : fullText;
 
   return {
-    text: item.snippet,
+    text,
     title,
     date,
     from,

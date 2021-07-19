@@ -1,0 +1,8 @@
+.message-page .media-body {
+  margin: 20px auto 0;
+  width: 65%;
+}
+
+.message-page .media {
+  display: flex;
+}

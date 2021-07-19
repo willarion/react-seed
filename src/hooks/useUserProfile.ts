@@ -1,10 +1,9 @@
 import React from 'react';
-import { LoginContext } from '../pages/HomePage/HomePage';
+import { LoginContext } from '../App';
 import { UserProfile } from '../models/UserProfile';
 
 const useUserProfile = (): UserProfile | null => {
-  const { user } = React.useContext(LoginContext);
-  return user;
+  return React.useContext(LoginContext).user;
 };
 
 export default useUserProfile;
