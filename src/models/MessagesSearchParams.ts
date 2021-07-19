@@ -1,4 +1,5 @@
 export interface MessagesSearchParams {
-  category: 'inbox' | 'drafts' | 'starred';
-  label: 'promotions' | 'social';
+  label: 'inbox' | 'drafts' | 'starred';
+  category: 'promotions' | 'social';
+  search: string;
 }

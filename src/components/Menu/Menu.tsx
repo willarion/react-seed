@@ -4,8 +4,8 @@ import { useMessagesSearchString } from '../../hooks/useSearchParams';
 
 export const Menu: React.FC = ({}) => {
   //todo function toggleNavBar() {}
-  const promotionsSearch = useMessagesSearchString({ label: 'promotions' });
-  const socialsSearch = useMessagesSearchString({ label: 'social' });
+  const promotionsSearch = useMessagesSearchString({ category: 'promotions' });
+  const socialsSearch = useMessagesSearchString({ category: 'social' });
 
   return (
     <nav className="navbar navbar-default navbar-top">

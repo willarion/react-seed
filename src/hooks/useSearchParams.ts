@@ -12,7 +12,7 @@ export const useSearchParams = (): Record<
 };
 
 export const useMessagesSearchString = (
-  params: Partial<MessagesSearchParams>,
+  params?: Partial<MessagesSearchParams>,
 ): string => {
   const currentParams = useSearchParams();
   return queryString.stringify({ ...currentParams, ...params });

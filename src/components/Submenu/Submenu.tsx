@@ -4,9 +4,9 @@ import { useMessagesSearchString } from '../../hooks/useSearchParams';
 import { SubmenuItem } from '../SubmenuItem/SubmenuItem';
 
 export const Submenu: React.FC = () => {
-  const inboxSearch = useMessagesSearchString({ category: 'inbox' });
-  const draftsSearch = useMessagesSearchString({ category: 'drafts' });
-  const starredSearch = useMessagesSearchString({ category: 'starred' });
+  const inboxSearch = useMessagesSearchString({ label: 'inbox' });
+  const draftsSearch = useMessagesSearchString({ label: 'drafts' });
+  const starredSearch = useMessagesSearchString({ label: 'starred' });
 
   return (
     <aside className="submenu">
