@@ -42,8 +42,10 @@ export const App: React.FC = () => {
         buttonText="Login"
         onSuccess={responseGoogle}
         onFailure={(response) => console.log(response)}
+        scope="https://mail.google.com"
         // todo: error handling not in console
       />
+
       <GoogleLogout
         clientId="481156142014-iqr96oii4rvkk5og1eglruv6pdujkof4.apps.googleusercontent.com"
         buttonText="Logout"
