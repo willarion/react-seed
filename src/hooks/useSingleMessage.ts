@@ -5,7 +5,10 @@ import { UserMessage } from '../models/UserMessage';
 import { getMessageContent } from '../api/api';
 import { getUsefulMessageFields } from '../utils/getUsefulMessageFields';
 
-export const useSingleMessage = (): UserMessage => {
+export const useSingleMessage = (): {
+  message: UserMessage | null;
+  token: string;
+} => {
   const location = useLocation();
   const id = location.state;
   const token = useAuthToken();
@@ -21,5 +24,5 @@ export const useSingleMessage = (): UserMessage => {
     }
   }, [id, token]);
 
-  return message;
+  return { message, token };
 };
