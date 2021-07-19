@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface PostsProps {
+interface PostProps {
   user?: string;
   title?: string;
   text?: string;
@@ -9,18 +9,22 @@ interface PostsProps {
   id: string;
 }
 
+const isValidDate = (date: Date): boolean => {
+  return date instanceof Date;
+};
+
 const getProperDate = (dateString?: string): string => {
   if (!dateString) {
     return '';
   }
   const date = new Date(dateString);
-  if (date.getDate() !== date.getDate()) {
+  if (!isValidDate(date)) {
     return '';
   }
   return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 };
 
-export const Post: React.FC<PostsProps> = ({
+export const Post: React.FC<PostProps> = ({
   user,
   text,
   title,
@@ -42,14 +46,13 @@ export const Post: React.FC<PostsProps> = ({
           </div>
         </div>
         <div className="itemName">
-          {/*todo change a to link and path to proper one*/}
           <Link
             to={{
               pathname: '/message',
               state: id,
             }}
             className="media-heading"
-            title="Item title"
+            title={title}
           >
             {title}
           </Link>
