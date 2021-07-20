@@ -5,17 +5,16 @@ import { getUsefulMessageFields } from '../utils/getUsefulMessageFields';
 
 export const getMessages = async (
   authToken: string,
-  // todo
-  // filter: unknown = {},
+  filter = '',
   // pageToken?: string,
 ): Promise<Array<string>> => {
   const { data } = await axios.get(
-    // `https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=3&access_token=${authToken}`,
     `https://gmail.googleapis.com/gmail/v1/users/me/messages`,
     {
       params: {
         maxResults: 3,
         access_token: authToken,
+        q: filter,
       },
     },
   );
@@ -44,10 +43,10 @@ export const getMessageContent = async (
 export const getMessagesList = async (
   authToken: string,
   // todo
-  // filter: unknown = {},
+  filter = '',
   // pageToken?: string,
 ): Promise<Array<UserMessage>> => {
-  const ids = await getMessages(authToken);
+  const ids = await getMessages(authToken, filter);
   const messages = ids.map((id) => getMessageContent(id, authToken));
   const result = await Promise.allSettled(messages);
   return result

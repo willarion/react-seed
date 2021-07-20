@@ -35,8 +35,6 @@ export const App: React.FC = () => {
     }
   };
 
-  console.log(userInfo);
-
   return (
     <>
       <GoogleLogin
@@ -46,6 +44,7 @@ export const App: React.FC = () => {
         onFailure={(response) => console.log(response)}
         scope="https://mail.google.com"
         // todo: error handling not in console
+        isSignedIn={true}
       />
 
       <GoogleLogout

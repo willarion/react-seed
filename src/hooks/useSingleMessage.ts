@@ -1,6 +1,6 @@
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import useAuthToken from './useAuthToken';
-import React from 'react';
 import { UserMessage } from '../models/UserMessage';
 import { getMessageContent } from '../api/api';
 import { getUsefulMessageFields } from '../utils/getUsefulMessageFields';

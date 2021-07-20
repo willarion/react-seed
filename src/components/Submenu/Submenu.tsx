@@ -1,104 +1,25 @@
 import React from 'react';
 import { SubmenuBlock } from '../SubmenuBlock/SubmenuBlock';
+import { useMessagesSearchString } from '../../hooks/useSearchParams';
 import { SubmenuItem } from '../SubmenuItem/SubmenuItem';
 
 export const Submenu: React.FC = () => {
+  const inboxSearch = useMessagesSearchString({ label: 'inbox' });
+  const draftsSearch = useMessagesSearchString({ label: 'drafts' });
+  const starredSearch = useMessagesSearchString({ label: 'starred' });
+
   return (
     <aside className="submenu">
-      <SubmenuBlock>
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 7d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 5d'}
-          isActive={false}
-        />
-      </SubmenuBlock>
-      <SubmenuBlock category={true} categoryName={'Submenu'}>
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 7d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 2d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 4d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'More tags'}
-          isActive={false}
-        />
-      </SubmenuBlock>
-      <SubmenuBlock category={true} categoryName={'Submenu'}>
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 1d'}
-          isActive={true}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 1d'}
-          isActive={false}
-        />
-      </SubmenuBlock>
-      <SubmenuBlock category={true} categoryName={'Submenu'}>
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 4d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 2d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item1 & Submenu2 2d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 7d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 1d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 1d'}
-          isActive={false}
-        />
-      </SubmenuBlock>
-      <SubmenuBlock category={true} categoryName={'Submenu'}>
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 2d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 1d'}
-          isActive={false}
-        />
-        <SubmenuItem
-          to={'index.html'}
-          itemName={'Submenu item 3d'}
-          isActive={false}
-        />
+      <SubmenuBlock category={true} categoryName={'Folders'}>
+        <SubmenuItem to={'/home'} search={inboxSearch}>
+          Inbox
+        </SubmenuItem>
+        <SubmenuItem to={'/home'} search={draftsSearch}>
+          Drafts
+        </SubmenuItem>
+        <SubmenuItem to={'/home'} search={starredSearch}>
+          Starred
+        </SubmenuItem>
       </SubmenuBlock>
     </aside>
   );
