@@ -3,11 +3,16 @@ import { GoogleMessage } from '../models/GoogleMessage';
 import { UserMessage } from '../models/UserMessage';
 import { getUsefulMessageFields } from '../utils/getUsefulMessageFields';
 
+interface MessagesVitalInfo {
+  messages: Array<string>;
+  pageToken: string;
+}
+
 export const getMessages = async (
   authToken: string,
   filter = '',
   // pageToken?: string,
-): Promise<Array<string>> => {
+): Promise<MessagesVitalInfo> => {
   const { data } = await axios.get(
     `https://gmail.googleapis.com/gmail/v1/users/me/messages`,
     {
@@ -19,10 +24,13 @@ export const getMessages = async (
     },
   );
 
-  // todo return also next page token data.nextPageToken
-  return data.messages.map((item: { id: string; thread: string }) => {
+  const messages = data.messages.map((item: { id: string; thread: string }) => {
     return item.id;
   });
+
+  const pageToken = data.nextPageToken ? data.nextPageToken : '';
+
+  return { messages, pageToken };
 };
 
 export const getMessageContent = async (
@@ -40,17 +48,26 @@ export const getMessageContent = async (
   return data;
 };
 
+interface UserMessagesInfo {
+  finalResult: Array<UserMessage>;
+  pageToken: string;
+}
+
 export const getMessagesList = async (
   authToken: string,
   // todo
   filter = '',
   // pageToken?: string,
-): Promise<Array<UserMessage>> => {
-  const ids = await getMessages(authToken, filter);
+): Promise<UserMessagesInfo> => {
+  const messagesInfo = await getMessages(authToken, filter);
+  const ids = messagesInfo.messages;
   const messages = ids.map((id) => getMessageContent(id, authToken));
+
   const result = await Promise.allSettled(messages);
-  return result
+  const finalResult = result
     .filter((item) => item.status === 'fulfilled')
     .map((item) => (item as PromiseFulfilledResult<GoogleMessage>).value)
     .map((item) => getUsefulMessageFields(item, true));
+
+  return { finalResult, pageToken: messagesInfo.pageToken };
 };

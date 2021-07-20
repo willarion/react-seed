@@ -7,19 +7,28 @@ import { Search } from '../Search/Search';
 import { useInputValue } from '../../hooks/useInputValue';
 import { makeGoogleSearchQuery } from '../../utils/makeGoogleSearchQuery';
 import { useSearchParams } from '../../hooks/useSearchParams';
-//todo import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
+import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 
 export const PostsContainer: React.FC = ({}) => {
   const search = useSearchParams();
   const { input, handleInput } = useInputValue();
 
-  const messages = useMessages(makeGoogleSearchQuery(search));
+  const memorizedFilter = React.useMemo(
+    () => makeGoogleSearchQuery(search),
+    [search],
+  );
+
+  const { messages, pageToken } = useMessages(memorizedFilter);
+  console.log(pageToken);
 
   return (
     <section
       className={classNames('postsContainer', styles.postsContainer_alone)}
     >
-      <Search handleInput={handleInput} input={input} />
+      <div className={classNames(styles.tools)}>
+        <Search handleInput={handleInput} input={input} />
+        <NavigationButtons />
+      </div>
       {messages.map((message) => (
         <Post
           key={message.id}
@@ -30,7 +39,6 @@ export const PostsContainer: React.FC = ({}) => {
           dateAndTime={message.date}
         />
       ))}
-      {/*todo <NavigationButtons />*/}
     </section>
   );
 };
