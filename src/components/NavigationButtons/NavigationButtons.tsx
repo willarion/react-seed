@@ -1,15 +1,34 @@
 import React from 'react';
 
-export const NavigationButtons: React.FC = () => {
-  // todo disable previous btn, when on first page
+interface NavigationButtonsProps {
+  onForward: () => void;
+  onBack: () => void;
+  onBackButton: boolean;
+}
+
+export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
+  onForward,
+  onBack,
+  onBackButton,
+}) => {
   return (
     <div className="controlButtons">
-      <button type="button" className="btn btn-default btn-prevNext">
-        <i className="icon-left-open-big"></i>Previous
+      <button
+        onClick={onBack}
+        type="button"
+        className="btn btn-default btn-prevNext"
+        disabled={onBackButton}
+      >
+        <i className="icon-left-open-big" />
+        Previous
       </button>
-      <button type="button" className="btn btn-default btn-prevNext">
+      <button
+        onClick={onForward}
+        type="button"
+        className="btn btn-default btn-prevNext"
+      >
         Next
-        <i className="icon-right-open-big"></i>
+        <i className="icon-right-open-big" />
       </button>
     </div>
   );

@@ -12,14 +12,21 @@ import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 export const PostsContainer: React.FC = ({}) => {
   const search = useSearchParams();
   const { input, handleInput } = useInputValue();
-
   const memorizedFilter = React.useMemo(
     () => makeGoogleSearchQuery(search),
     [search],
   );
 
-  const { messages, pageToken } = useMessages(memorizedFilter);
-  console.log(pageToken);
+  const { messages, pageToken, getNextMessagesList, getPreviousMessagesList } =
+    useMessages(memorizedFilter);
+
+  const goForward = () => {
+    getNextMessagesList(memorizedFilter);
+  };
+  const goBack = () => {
+    getPreviousMessagesList(memorizedFilter);
+  };
+  const isBackButtonActive = !(pageToken.length > 1);
 
   return (
     <section
@@ -27,7 +34,11 @@ export const PostsContainer: React.FC = ({}) => {
     >
       <div className={classNames(styles.tools)}>
         <Search handleInput={handleInput} input={input} />
-        <NavigationButtons />
+        <NavigationButtons
+          onBackButton={isBackButtonActive}
+          onBack={goBack}
+          onForward={goForward}
+        />
       </div>
       {messages.map((message) => (
         <Post

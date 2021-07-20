@@ -11,13 +11,14 @@ interface MessagesVitalInfo {
 export const getMessages = async (
   authToken: string,
   filter = '',
-  // pageToken?: string,
+  nextPageToken = '0',
 ): Promise<MessagesVitalInfo> => {
   const { data } = await axios.get(
     `https://gmail.googleapis.com/gmail/v1/users/me/messages`,
     {
       params: {
         maxResults: 3,
+        pageToken: nextPageToken,
         access_token: authToken,
         q: filter,
       },
@@ -57,9 +58,9 @@ export const getMessagesList = async (
   authToken: string,
   // todo
   filter = '',
-  // pageToken?: string,
+  nextPageToken?: string,
 ): Promise<UserMessagesInfo> => {
-  const messagesInfo = await getMessages(authToken, filter);
+  const messagesInfo = await getMessages(authToken, filter, nextPageToken);
   const ids = messagesInfo.messages;
   const messages = ids.map((id) => getMessageContent(id, authToken));
 
