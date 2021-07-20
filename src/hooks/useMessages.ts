@@ -12,9 +12,10 @@ function useMessages(filter: string): {
 
   const [messages, setMessages] = React.useState<Array<UserMessage>>([]);
 
-  const { pageToken, savePageToken } = useNextPageToken();
+  const { pageToken, savePageToken, deletePageToken } = useNextPageToken();
 
   React.useEffect(() => {
+    deletePageToken();
     getMessagesList(token, filter)
       .then((res) => {
         setMessages(res.finalResult);
