@@ -1,5 +1,5 @@
 import React from 'react';
-import useUserProfile from '../../hooks/useUserProfile';
+import useUserProfile from '../../hooks/useUserProfile/useUserProfile';
 import { Header } from '../../components/Header/Header';
 import { Menu } from '../../components/Menu/Menu';
 import { ContainerMain } from '../../components/ContainerMain/ContainerMain';

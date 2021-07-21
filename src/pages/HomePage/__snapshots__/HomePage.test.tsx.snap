@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HomePage /> should have render with user 1`] = `
+<section>
+  <Header />
+  <Menu />
+  <ContainerMain>
+    <Submenu />
+  </ContainerMain>
+</section>
+`;
+
+exports[`<HomePage /> should have render without user 1`] = `
+<section>
+  <Header />
+  <Menu />
+  <ContainerMain>
+    <Submenu />
+  </ContainerMain>
+</section>
+`;

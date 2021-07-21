@@ -1,8 +1,8 @@
 import React from 'react';
-import { getMessagesList } from '../api/api';
-import { UserMessage } from '../models/UserMessage';
-import useAuthToken from './useAuthToken';
-import { useNextPageToken } from './useNextPageToken';
+import { getMessagesList } from '../../api/api';
+import { UserMessage } from '../../models/UserMessage';
+import useAuthToken from '../useAuthToken/useAuthToken';
+import { useNextPageToken } from '../useNextPageToken/useNextPageToken';
 import { last, initial } from 'lodash';
 
 function useMessages(filter: string): {

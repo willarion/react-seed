@@ -8,7 +8,7 @@ import {
 import { HomePage, LoginState } from './pages/HomePage/HomePage';
 import './styles/index.css';
 import { MessagePage } from './pages/MessagePage/MessagePage';
-import useUserInfo from './hooks/useUserInfo';
+import useUserInfo from './hooks/useUserInfo/useUserInfo';
 import {
   GoogleLogin,
   GoogleLoginResponse,

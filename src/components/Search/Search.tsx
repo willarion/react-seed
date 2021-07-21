@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMessagesSearchString } from '../../hooks/useSearchParams';
+import { useMessagesSearchString } from '../../hooks/useSearchParams/useSearchParams';
 import { useHistory } from 'react-router';
 
 interface SearchProps {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import useAuthToken from './useAuthToken';
-import { UserMessage } from '../models/UserMessage';
-import { getMessageContent } from '../api/api';
-import { getUsefulMessageFields } from '../utils/getUsefulMessageFields';
+import useAuthToken from '../useAuthToken/useAuthToken';
+import { UserMessage } from '../../models/UserMessage';
+import { getMessageContent } from '../../api/api';
+import { getUsefulMessageFields } from '../../utils/getUsefulMessageFields';
 
 export const useSingleMessage = (): {
   message: UserMessage | null;

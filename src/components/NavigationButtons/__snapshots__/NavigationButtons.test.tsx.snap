@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component/NavigationButtons should render with disabled btn 1`] = `
+<div
+  className="controlButtons"
+>
+  <button
+    className="btn btn-default btn-prevNext"
+    disabled={false}
+    onClick={[MockFunction]}
+    type="button"
+  >
+    <i
+      className="icon-left-open-big"
+    />
+    Previous
+  </button>
+  <button
+    className="btn btn-default btn-prevNext"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    Next
+    <i
+      className="icon-right-open-big"
+    />
+  </button>
+</div>
+`;
+
+exports[`component/NavigationButtons should render with no disabled btn 1`] = `
+<div
+  className="controlButtons"
+>
+  <button
+    className="btn btn-default btn-prevNext"
+    disabled={false}
+    onClick={[MockFunction]}
+    type="button"
+  >
+    <i
+      className="icon-left-open-big"
+    />
+    Previous
+  </button>
+  <button
+    className="btn btn-default btn-prevNext"
+    onClick={[MockFunction]}
+    type="button"
+  >
+    Next
+    <i
+      className="icon-right-open-big"
+    />
+  </button>
+</div>
+`;

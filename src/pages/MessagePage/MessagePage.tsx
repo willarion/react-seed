@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from '../../components/Header/Header';
 import { Post } from '../../components/Post/Post';
 import './MessagePage.css';
-import { useSingleMessage } from '../../hooks/useSingleMessage';
+import { useSingleMessage } from '../../hooks/useSingleMessage/useSingleMessage';
 
 export const MessagePage: React.FC = ({}) => {
   const { message, token } = useSingleMessage();

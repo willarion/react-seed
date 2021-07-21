@@ -16,6 +16,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       <button
         onClick={onBack}
         type="button"
+        key="back-button"
         className="btn btn-default btn-prevNext"
         disabled={onBackButton}
       >
@@ -25,6 +26,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
       <button
         onClick={onForward}
         type="button"
+        key="forward-button"
         className="btn btn-default btn-prevNext"
       >
         Next

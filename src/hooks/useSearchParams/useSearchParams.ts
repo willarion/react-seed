@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import { MessagesSearchParams } from '../models/MessagesSearchParams';
+import { MessagesSearchParams } from '../../models/MessagesSearchParams';
 
 export const useSearchParams = (): Record<
   string,
