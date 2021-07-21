@@ -1,24 +1,28 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import useAuthToken from '../useAuthToken/useAuthToken';
-import { UserMessage } from '../../models/UserMessage';
 import { getMessageContent } from '../../api/api';
-import { getUsefulMessageFields } from '../../utils/getUsefulMessageFields';
+import { getUsefullFulltextMessageFields } from '../../utils/getUsefulMessagePreviewFields';
+import { UserFulltextMessage } from '../../models/UserFulltextMessage';
 
 export const useSingleMessage = (): {
-  message: UserMessage | null;
+  message: UserFulltextMessage | null;
   token: string;
 } => {
   const location = useLocation();
   const id = location.state;
   const token = useAuthToken();
 
-  const [message, setMessage] = React.useState<UserMessage | null>(null);
+  const [message, setMessage] = React.useState<UserFulltextMessage | null>(
+    null,
+  );
 
   React.useEffect(() => {
     if (token !== '') {
       getMessageContent(id, token).then((res) => {
-        setMessage(getUsefulMessageFields(res, false));
+        if (res.payload.parts[1].body.data) {
+          setMessage(getUsefullFulltextMessageFields(res));
+        }
       });
     }
   }, [id, token]);

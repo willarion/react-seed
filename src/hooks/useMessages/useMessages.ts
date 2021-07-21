@@ -1,19 +1,19 @@
 import React from 'react';
 import { getMessagesList } from '../../api/api';
-import { UserMessage } from '../../models/UserMessage';
+import { UserPreviewMessage } from '../../models/UserPreviewMessage';
 import useAuthToken from '../useAuthToken/useAuthToken';
 import { useNextPageToken } from '../useNextPageToken/useNextPageToken';
 import { last, initial } from 'lodash';
 
 function useMessages(filter: string): {
-  messages: Array<UserMessage>;
+  messages: Array<UserPreviewMessage>;
   pageToken: Array<string>;
   getNextMessagesList: (oldFilter: string) => void;
   getPreviousMessagesList: (oldFilter: string) => void;
 } {
   const token = useAuthToken();
 
-  const [messages, setMessages] = React.useState<Array<UserMessage>>([]);
+  const [messages, setMessages] = React.useState<Array<UserPreviewMessage>>([]);
 
   const { pageToken, saveOnePageToken, saveLessPageTokens, saveMorePageToken } =
     useNextPageToken();

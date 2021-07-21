@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GoogleMessage } from '../models/GoogleMessage';
-import { UserMessage } from '../models/UserMessage';
-import { getUsefulMessageFields } from '../utils/getUsefulMessageFields';
+import { UserPreviewMessage } from '../models/UserPreviewMessage';
+import { getUsefulMessagePreviewFields } from '../utils/getUsefulMessagePreviewFields';
 
 interface MessagesVitalInfo {
   messages: Array<string>;
@@ -50,7 +50,7 @@ export const getMessageContent = async (
 };
 
 interface UserMessagesInfo {
-  finalResult: Array<UserMessage>;
+  finalResult: Array<UserPreviewMessage>;
   pageToken: string;
 }
 
@@ -68,7 +68,7 @@ export const getMessagesList = async (
   const finalResult = result
     .filter((item) => item.status === 'fulfilled')
     .map((item) => (item as PromiseFulfilledResult<GoogleMessage>).value)
-    .map((item) => getUsefulMessageFields(item, true));
+    .map((item) => getUsefulMessagePreviewFields(item));
 
   return { finalResult, pageToken: messagesInfo.pageToken };
 };

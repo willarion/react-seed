@@ -12,11 +12,12 @@ export const MessagePage: React.FC = ({}) => {
       <Header />
       {message && token && (
         <Post
+          single={true}
           key={message.id}
           id={message.id}
           user={message.from}
           title={message.title}
-          text={message.text}
+          text={message.html}
           dateAndTime={message.date}
         />
       )}

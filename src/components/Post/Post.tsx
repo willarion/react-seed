@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface PostProps {
+  single?: boolean;
   user?: string;
   title?: string;
   text?: string;
@@ -25,6 +26,7 @@ const getProperDate = (dateString?: string): string => {
 };
 
 export const Post: React.FC<PostProps> = ({
+  single,
   user,
   text,
   title,
@@ -57,7 +59,11 @@ export const Post: React.FC<PostProps> = ({
             {title}
           </Link>
         </div>
-        <p>{text}</p>
+        {single && text ? (
+          <div dangerouslySetInnerHTML={{ __html: text }} />
+        ) : (
+          <p>{text}...</p>
+        )}
       </div>
     </section>
   );
