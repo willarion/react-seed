@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getMessagesList } from '../../api/api';
 import { UserPreviewMessage } from '../../models/UserPreviewMessage';
 import useAuthToken from '../useAuthToken/useAuthToken';
@@ -7,7 +7,7 @@ import { last, initial } from 'lodash';
 
 function useMessages(filter: string): {
   messages: Array<UserPreviewMessage>;
-  pageToken: Array<string>;
+  pageTokensList: Array<string>;
   getNextMessagesList: (oldFilter: string) => void;
   getPreviousMessagesList: (oldFilter: string) => void;
 } {
@@ -15,42 +15,60 @@ function useMessages(filter: string): {
 
   const [messages, setMessages] = useState<Array<UserPreviewMessage>>([]);
 
-  const { pageToken, saveOnePageToken, saveLessPageTokens, saveMorePageToken } =
-    useNextPageToken();
+  const {
+    pageTokensList,
+    saveOnePageToken,
+    saveLessPageTokens,
+    saveMorePageToken,
+  } = useNextPageToken();
 
-  React.useEffect(() => {
+  useEffect(() => {
     getMessagesList(token, filter)
-      .then((res) => {
-        setMessages(res.finalResult);
-        saveOnePageToken(res.pageToken);
+      .then(({ messagesList, pageToken }) => {
+        setMessages(messagesList);
+        saveOnePageToken(pageToken);
       })
       .catch(() => setMessages([]));
   }, [filter]);
 
-  const getNextMessagesList = (oldFilter: string) => {
-    const nextPageToken = last(pageToken);
+  const getNextMessagesList = useCallback(
+    (oldFilter: string) => {
+      const nextPageToken = last(pageTokensList);
 
-    getMessagesList(token, oldFilter, nextPageToken)
-      .then((res) => {
-        setMessages(res.finalResult);
-        saveMorePageToken(res.pageToken);
-      })
-      .catch(() => setMessages([]));
+      getMessagesList(token, oldFilter, nextPageToken)
+        .then(({ messagesList, pageToken }) => {
+          setMessages(messagesList);
+          saveMorePageToken(pageToken);
+        })
+        .catch(() => setMessages([]));
+    },
+    [pageTokensList, saveMorePageToken, token],
+  );
+
+  const getPreviousMessagesList = useCallback(
+    (oldFilter: string) => {
+      if (pageTokensList.length < 2) {
+        return;
+      }
+      const shorterArray = initial(pageTokensList);
+      const previousPageToken = last(initial(shorterArray)); // get penultimate pageToken
+
+      getMessagesList(token, oldFilter, previousPageToken)
+        .then(({ messagesList }) => {
+          setMessages(messagesList);
+          saveLessPageTokens(shorterArray);
+        })
+        .catch(() => setMessages([]));
+    },
+    [pageTokensList, saveLessPageTokens, token],
+  );
+
+  return {
+    messages,
+    pageTokensList,
+    getNextMessagesList,
+    getPreviousMessagesList,
   };
-
-  const getPreviousMessagesList = (oldFilter: string) => {
-    const shorterArray = initial(pageToken);
-    const previousPageToken = last(initial(shorterArray)); // get penultimate pageToken
-
-    getMessagesList(token, oldFilter, previousPageToken)
-      .then((res) => {
-        setMessages(res.finalResult);
-        saveLessPageTokens(shorterArray);
-      })
-      .catch(() => setMessages([]));
-  };
-
-  return { messages, pageToken, getNextMessagesList, getPreviousMessagesList };
 }
 
 export default useMessages;

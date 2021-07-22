@@ -17,8 +17,12 @@ export const PostsContainer: React.FC = ({}) => {
     [search],
   );
 
-  const { messages, pageToken, getNextMessagesList, getPreviousMessagesList } =
-    useMessages(memorizedFilter);
+  const {
+    messages,
+    pageTokensList,
+    getNextMessagesList,
+    getPreviousMessagesList,
+  } = useMessages(memorizedFilter);
 
   const goForward = () => {
     getNextMessagesList(memorizedFilter);
@@ -26,7 +30,7 @@ export const PostsContainer: React.FC = ({}) => {
   const goBack = () => {
     getPreviousMessagesList(memorizedFilter);
   };
-  const isBackButtonActive = !(pageToken.length > 1);
+  const isBackButtonActive = !(pageTokensList.length > 1);
 
   return (
     <section
@@ -35,7 +39,7 @@ export const PostsContainer: React.FC = ({}) => {
       <div className={classNames(styles.tools)}>
         <Search handleInput={handleInput} input={input} />
         <NavigationButtons
-          onBackButton={isBackButtonActive}
+          backButtonStatus={isBackButtonActive}
           onBack={goBack}
           onForward={goForward}
         />

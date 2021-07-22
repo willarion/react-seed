@@ -3,13 +3,13 @@ import React from 'react';
 interface NavigationButtonsProps {
   onForward: () => void;
   onBack: () => void;
-  onBackButton: boolean;
+  backButtonStatus: boolean;
 }
 
 export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   onForward,
   onBack,
-  onBackButton,
+  backButtonStatus,
 }) => {
   return (
     <div className="controlButtons">
@@ -18,7 +18,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
         type="button"
         key="back-button"
         className="btn btn-default btn-prevNext"
-        disabled={onBackButton}
+        disabled={backButtonStatus}
       >
         <i className="icon-left-open-big" />
         Previous

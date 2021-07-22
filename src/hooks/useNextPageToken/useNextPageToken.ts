@@ -1,26 +1,29 @@
 import React from 'react';
 
 export interface NextPageTokenApi {
-  pageToken: Array<string>;
+  pageTokensList: Array<string>;
   saveOnePageToken: (apiPageToken: string) => void;
   saveMorePageToken: (apiPageToken: string) => void;
   saveLessPageTokens: (lessTokens: Array<string>) => void;
 }
 
 export const useNextPageToken = (): NextPageTokenApi => {
-  const [pageToken, setPageToken] = React.useState<Array<string>>(['0']);
+  const [pageTokensList, setPageTokensList] = React.useState<Array<string>>([
+    '0',
+  ]);
 
   const saveOnePageToken = (apiPageToken: string) => {
-    setPageToken([apiPageToken]);
+    setPageTokensList([apiPageToken]);
   };
 
   const saveMorePageToken = (apiPageToken: string) => {
-    setPageToken([...pageToken, apiPageToken]);
+    setPageTokensList([...pageTokensList, apiPageToken]);
   };
 
-  const saveLessPageTokens = (lessTokens: Array<string>) => {
-    setPageToken(lessTokens);
+  return {
+    pageTokensList,
+    saveOnePageToken,
+    saveMorePageToken,
+    saveLessPageTokens: setPageTokensList,
   };
-
-  return { pageToken, saveOnePageToken, saveMorePageToken, saveLessPageTokens };
 };
