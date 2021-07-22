@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMessagesList } from '../../api/api';
 import { UserPreviewMessage } from '../../models/UserPreviewMessage';
 import useAuthToken from '../useAuthToken/useAuthToken';
@@ -13,7 +13,7 @@ function useMessages(filter: string): {
 } {
   const token = useAuthToken();
 
-  const [messages, setMessages] = React.useState<Array<UserPreviewMessage>>([]);
+  const [messages, setMessages] = useState<Array<UserPreviewMessage>>([]);
 
   const { pageToken, saveOnePageToken, saveLessPageTokens, saveMorePageToken } =
     useNextPageToken();

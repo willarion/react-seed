@@ -1,11 +1,13 @@
 import React from 'react';
 
-export const useNextPageToken = (): {
+export interface NextPageTokenApi {
   pageToken: Array<string>;
   saveOnePageToken: (apiPageToken: string) => void;
   saveMorePageToken: (apiPageToken: string) => void;
   saveLessPageTokens: (lessTokens: Array<string>) => void;
-} => {
+}
+
+export const useNextPageToken = (): NextPageTokenApi => {
   const [pageToken, setPageToken] = React.useState<Array<string>>(['0']);
 
   const saveOnePageToken = (apiPageToken: string) => {

@@ -49,7 +49,7 @@ export const getMessageContent = async (
   return data;
 };
 
-interface UserMessagesInfo {
+export interface UserMessagesInfo {
   finalResult: Array<UserPreviewMessage>;
   pageToken: string;
 }
