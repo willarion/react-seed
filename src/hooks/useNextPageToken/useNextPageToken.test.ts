@@ -6,10 +6,10 @@ describe('hook functions should set proper value to state', () => {
     const { result } = renderHook(() => useNextPageToken());
 
     act(() => {
-      result.current.saveOnePageToken('123456789');
+      result.current.makeNewPageTokensList('123456789');
     });
 
-    expect(result.current.pageToken).toStrictEqual(['123456789']);
+    expect(result.current.pageTokensList).toStrictEqual(['0', '123456789']);
   });
 
   it('should add new pageToken in array with previous ones', () => {
@@ -19,7 +19,7 @@ describe('hook functions should set proper value to state', () => {
       result.current.saveMorePageToken('123456789');
     });
 
-    expect(result.current.pageToken).toStrictEqual(['0', '123456789']);
+    expect(result.current.pageTokensList).toStrictEqual(['0', '123456789']);
   });
 
   it('should save new array with pageToken instead of previous one', () => {
@@ -29,6 +29,6 @@ describe('hook functions should set proper value to state', () => {
       result.current.saveMorePageToken('123456789');
     });
 
-    expect(result.current.pageToken).toStrictEqual(['0', '123456789']);
+    expect(result.current.pageTokensList).toStrictEqual(['0', '123456789']);
   });
 });

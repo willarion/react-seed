@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface NextPageTokenApi {
   pageTokensList: Array<string>;
-  saveOnePageToken: (apiPageToken: string) => void;
+  makeNewPageTokensList: (apiPageToken: string) => void;
   saveMorePageToken: (apiPageToken: string) => void;
   saveLessPageTokens: (lessTokens: Array<string>) => void;
 }
@@ -12,8 +12,8 @@ export const useNextPageToken = (): NextPageTokenApi => {
     '0',
   ]);
 
-  const saveOnePageToken = (apiPageToken: string) => {
-    setPageTokensList([apiPageToken]);
+  const makeNewPageTokensList = (apiPageToken: string) => {
+    setPageTokensList(['0', apiPageToken]);
   };
 
   const saveMorePageToken = (apiPageToken: string) => {
@@ -22,7 +22,7 @@ export const useNextPageToken = (): NextPageTokenApi => {
 
   return {
     pageTokensList,
-    saveOnePageToken,
+    makeNewPageTokensList,
     saveMorePageToken,
     saveLessPageTokens: setPageTokensList,
   };

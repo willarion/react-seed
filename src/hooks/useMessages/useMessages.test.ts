@@ -6,7 +6,7 @@ import {
   NextPageTokenApi,
   useNextPageToken,
 } from '../useNextPageToken/useNextPageToken';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import useMessages from './useMessages';
 
 jest.mock('../useAuthToken/useAuthToken');
@@ -18,7 +18,7 @@ const NEXT_PAGE_TOKEN = 'NEXT_PAGE_TOKEN';
 
 const mockResponse: UserMessagesInfo = {
   pageToken: NEXT_PAGE_TOKEN,
-  finalResult: [
+  messagesList: [
     createUserPreviewMessageStub({ id: '1' }),
     createUserPreviewMessageStub({ id: '2' }),
     createUserPreviewMessageStub({ id: '3' }),
@@ -29,11 +29,20 @@ const mockResponse: UserMessagesInfo = {
 const CURRENT_PAGE_TOKEN = 'CURRENT_PAGE_TOKEN';
 
 const nextPageTokenStub: NextPageTokenApi = {
-  pageToken: [CURRENT_PAGE_TOKEN],
-  saveOnePageToken: jest.fn(),
+  pageTokensList: [CURRENT_PAGE_TOKEN, CURRENT_PAGE_TOKEN, CURRENT_PAGE_TOKEN],
+  makeNewPageTokensList: jest.fn(),
   saveMorePageToken: jest.fn(),
   saveLessPageTokens: jest.fn(),
 };
+
+// const previosValidPageTokenStub: NextPageTokenApi = {
+//   pageTokensList: [CURRENT_PAGE_TOKEN, CURRENT_PAGE_TOKEN, CURRENT_PAGE_TOKEN],
+//   makeNewPageTokensList: jest.fn(),
+//   saveMorePageToken: jest.fn(),
+//   saveLessPageTokens: jest.fn(),
+// };
+
+const OLD_FILTER = 'SOME_FILTER';
 
 describe('hooks/useMessages', () => {
   beforeEach(() => {
@@ -55,8 +64,8 @@ describe('hooks/useMessages', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current.messages).toEqual(mockResponse.finalResult);
-    expect(nextPageTokenStub.saveOnePageToken).toHaveBeenCalledWith(
+    expect(result.current.messages).toEqual(mockResponse.messagesList);
+    expect(nextPageTokenStub.makeNewPageTokensList).toHaveBeenCalledWith(
       mockResponse.pageToken,
     );
   });
@@ -68,7 +77,7 @@ describe('hooks/useMessages', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current.messages).toEqual(mockResponse.finalResult);
+    expect(result.current.messages).toEqual(mockResponse.messagesList);
 
     const error = new Error('get message list error');
     mocked(getMessagesList).mockImplementationOnce(() => Promise.reject(error));
@@ -82,7 +91,52 @@ describe('hooks/useMessages', () => {
 
   it('should return pageToken from useNextPageToken hook', async () => {
     const { result, waitForNextUpdate } = renderHook(() => useMessages(''));
-    expect(result.current.pageToken).toEqual(nextPageTokenStub.pageToken);
+    expect(result.current.pageTokensList).toEqual(
+      nextPageTokenStub.pageTokensList,
+    );
     await waitForNextUpdate();
+  });
+
+  it('should update to next messages and list of tokens', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useMessages(''));
+
+    expect(getMessagesList).toBeCalledTimes(1);
+
+    await act(async () => {
+      result.current.getNextMessagesList(OLD_FILTER);
+      await waitForNextUpdate();
+      expect(getMessagesList).toHaveBeenCalledWith(
+        AUTH_TOKEN,
+        OLD_FILTER,
+        CURRENT_PAGE_TOKEN,
+      );
+
+      expect(getMessagesList).toBeCalledTimes(2);
+      expect(result.current.pageTokensList).toEqual(
+        nextPageTokenStub.pageTokensList,
+      );
+      expect(result.current.messages).toEqual(mockResponse.messagesList);
+    });
+  });
+
+  it('should update to previous messages and list of tokens', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => useMessages(''));
+
+    expect(getMessagesList).toBeCalledTimes(1);
+
+    await act(async () => {
+      result.current.getPreviousMessagesList(OLD_FILTER);
+      await waitForNextUpdate();
+      expect(getMessagesList).toHaveBeenCalledWith(
+        AUTH_TOKEN,
+        OLD_FILTER,
+        CURRENT_PAGE_TOKEN,
+      );
+
+      expect(result.current.pageTokensList).toEqual(
+        nextPageTokenStub.pageTokensList,
+      );
+      expect(result.current.messages).toEqual(mockResponse.messagesList);
+    });
   });
 });

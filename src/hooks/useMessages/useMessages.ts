@@ -17,7 +17,7 @@ function useMessages(filter: string): {
 
   const {
     pageTokensList,
-    saveOnePageToken,
+    makeNewPageTokensList,
     saveLessPageTokens,
     saveMorePageToken,
   } = useNextPageToken();
@@ -26,39 +26,49 @@ function useMessages(filter: string): {
     getMessagesList(token, filter)
       .then(({ messagesList, pageToken }) => {
         setMessages(messagesList);
-        saveOnePageToken(pageToken);
+        makeNewPageTokensList(pageToken);
       })
       .catch(() => setMessages([]));
   }, [filter]);
 
   const getNextMessagesList = useCallback(
-    (oldFilter: string) => {
+    async (oldFilter: string) => {
       const nextPageToken = last(pageTokensList);
 
-      getMessagesList(token, oldFilter, nextPageToken)
-        .then(({ messagesList, pageToken }) => {
-          setMessages(messagesList);
-          saveMorePageToken(pageToken);
-        })
-        .catch(() => setMessages([]));
+      try {
+        const { messagesList, pageToken } = await getMessagesList(
+          token,
+          oldFilter,
+          nextPageToken,
+        );
+        setMessages(messagesList);
+        saveMorePageToken(pageToken);
+      } catch (err) {
+        setMessages([]);
+      }
     },
     [pageTokensList, saveMorePageToken, token],
   );
 
   const getPreviousMessagesList = useCallback(
-    (oldFilter: string) => {
+    async (oldFilter: string) => {
       if (pageTokensList.length < 2) {
         return;
       }
       const shorterArray = initial(pageTokensList);
       const previousPageToken = last(initial(shorterArray)); // get penultimate pageToken
 
-      getMessagesList(token, oldFilter, previousPageToken)
-        .then(({ messagesList }) => {
-          setMessages(messagesList);
-          saveLessPageTokens(shorterArray);
-        })
-        .catch(() => setMessages([]));
+      try {
+        const { messagesList } = await getMessagesList(
+          token,
+          oldFilter,
+          previousPageToken,
+        );
+        setMessages(messagesList);
+        saveLessPageTokens(shorterArray);
+      } catch (err) {
+        setMessages([]);
+      }
     },
     [pageTokensList, saveLessPageTokens, token],
   );

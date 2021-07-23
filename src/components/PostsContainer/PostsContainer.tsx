@@ -30,7 +30,7 @@ export const PostsContainer: React.FC = ({}) => {
   const goBack = () => {
     getPreviousMessagesList(memorizedFilter);
   };
-  const isBackButtonActive = !(pageTokensList.length > 1);
+  const isBackButtonActive = !(pageTokensList.length > 2);
 
   return (
     <section
