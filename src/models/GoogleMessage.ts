@@ -7,9 +7,16 @@ export interface GoogleMessage {
       value: string;
     }[];
     parts: {
+      mimeType: string;
       body: {
         data?: string;
       };
+      parts?: {
+        mimeType: string;
+        body: {
+          data?: string;
+        };
+      }[];
     }[];
   };
 }

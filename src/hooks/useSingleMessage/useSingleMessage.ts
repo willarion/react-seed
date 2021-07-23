@@ -20,9 +20,7 @@ export const useSingleMessage = (): {
   React.useEffect(() => {
     if (token !== '') {
       getMessageContent(id, token).then((res) => {
-        if (res.payload.parts[1].body.data) {
-          setMessage(getUsefullFulltextMessageFields(res));
-        }
+        setMessage(getUsefullFulltextMessageFields(res));
       });
     }
   }, [id, token]);

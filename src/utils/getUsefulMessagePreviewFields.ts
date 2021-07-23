@@ -26,16 +26,28 @@ export const getUsefulMessagePreviewFields = (
 export const getUsefullFulltextMessageFields = (
   message: GoogleMessage,
 ): UserFulltextMessage | null => {
-  if (!message.payload.parts[1].body.data) {
-    return null;
+  const { title, date, from, id } = getUsefulMessagePreviewFields(message);
+
+  let encodedHTML;
+
+  const body = find(
+    find(message.payload.parts, { mimeType: 'multipart/alternative' })?.parts,
+    { mimeType: 'text/html' },
+  )?.body;
+
+  if (body) {
+    encodedHTML = body.data;
+  } else {
+    const body = find(message.payload.parts, { mimeType: 'text/html' })?.body;
+    encodedHTML = body?.data;
   }
 
-  const { title, date, from, id } = getUsefulMessagePreviewFields(message);
-  const encodedHTML = message.payload.parts[1].body.data;
-  const messageDangerHTML = decode(encodedHTML);
-  const messageSafeHTML = DOMPurify.sanitize(messageDangerHTML, {
-    FORCE_BODY: true,
-  });
+  const messageDangerHTML = encodedHTML && decode(encodedHTML);
+  const messageSafeHTML =
+    messageDangerHTML &&
+    DOMPurify.sanitize(messageDangerHTML, {
+      FORCE_BODY: true,
+    });
 
   return {
     title,
