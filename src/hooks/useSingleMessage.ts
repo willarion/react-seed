@@ -18,7 +18,6 @@ export const useSingleMessage = (): {
   React.useEffect(() => {
     if (token !== '') {
       getMessageContent(id, token).then((res) => {
-        console.log(res);
         setMessage(getUsefulMessageFields(res, false));
       });
     }
