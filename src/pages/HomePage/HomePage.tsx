@@ -12,7 +12,7 @@ export interface LoginState {
   access: string;
 }
 
-export const HomePage: React.FC = ({}) => {
+export const HomePage: React.FC = () => {
   const user = useUserProfile();
   return (
     <section>

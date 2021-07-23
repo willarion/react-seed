@@ -15,25 +15,22 @@ const userProfile: UserProfile = {
   familyName: 'string',
 };
 
-const mockedTrueHook = mocked(useUserProfile).mockImplementation(
-  () => userProfile,
-);
-const mockedNullHook = mocked(useUserProfile).mockImplementation(() => null);
-
 describe('<HomePage />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should have render with user', () => {
+    mocked(useUserProfile).mockImplementationOnce(() => userProfile);
     const wrapper = shallow(<HomePage />);
     expect(wrapper).toMatchSnapshot();
-    expect(mockedTrueHook).toHaveBeenCalled();
+    expect(useUserProfile).toHaveBeenCalled();
   });
 
   it('should have render without user', () => {
+    mocked(useUserProfile).mockImplementationOnce(() => null);
     const wrapper = shallow(<HomePage />);
     expect(wrapper).toMatchSnapshot();
-    expect(mockedNullHook).toHaveBeenCalled();
+    expect(useUserProfile).toHaveBeenCalled();
   });
 });

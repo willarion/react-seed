@@ -6,7 +6,7 @@ exports[`component/NavigationButtons should render with disabled btn 1`] = `
 >
   <button
     className="btn btn-default btn-prevNext"
-    disabled={false}
+    key="back-button"
     onClick={[MockFunction]}
     type="button"
   >
@@ -17,6 +17,7 @@ exports[`component/NavigationButtons should render with disabled btn 1`] = `
   </button>
   <button
     className="btn btn-default btn-prevNext"
+    key="forward-button"
     onClick={[MockFunction]}
     type="button"
   >
@@ -34,7 +35,7 @@ exports[`component/NavigationButtons should render with no disabled btn 1`] = `
 >
   <button
     className="btn btn-default btn-prevNext"
-    disabled={false}
+    key="back-button"
     onClick={[MockFunction]}
     type="button"
   >
@@ -45,6 +46,7 @@ exports[`component/NavigationButtons should render with no disabled btn 1`] = `
   </button>
   <button
     className="btn btn-default btn-prevNext"
+    key="forward-button"
     onClick={[MockFunction]}
     type="button"
   >

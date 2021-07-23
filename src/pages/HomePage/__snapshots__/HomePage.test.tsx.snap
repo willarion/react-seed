@@ -6,6 +6,7 @@ exports[`<HomePage /> should have render with user 1`] = `
   <Menu />
   <ContainerMain>
     <Submenu />
+    <PostsContainer />
   </ContainerMain>
 </section>
 `;
