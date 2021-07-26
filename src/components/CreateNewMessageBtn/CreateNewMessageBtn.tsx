@@ -1,16 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import styles from './CreateNewMessageBtn.module.css';
-import { ModalFunction } from '../../models/ModalFunction';
+import { ModalFunctionality } from '../../models/ModalFunctionality';
 
-export const CreateNewMessageBtn: React.FC<ModalFunction> = ({
+export const CreateNewMessageBtn: React.FC<Partial<ModalFunctionality>> = ({
   toggleModal,
 }) => {
   return (
     <button
       onClick={toggleModal}
       type="button"
-      className={classNames('newItem', styles.composeBtn)}
+      className={classNames(styles.compose_button)}
       data-toggle="modal"
       data-target="#myModal"
     >

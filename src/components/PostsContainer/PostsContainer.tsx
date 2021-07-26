@@ -9,9 +9,11 @@ import { makeGoogleSearchQuery } from '../../utils/makeGoogleSearchQuery';
 import { useSearchParams } from '../../hooks/useSearchParams/useSearchParams';
 import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 import { CreateNewMessageBtn } from '../CreateNewMessageBtn/CreateNewMessageBtn';
-import { ModalFunction } from '../../models/ModalFunction';
+import { ModalFunctionality } from '../../models/ModalFunctionality';
 
-export const PostsContainer: React.FC<ModalFunction> = ({ toggleModal }) => {
+export const PostsContainer: React.FC<Partial<ModalFunctionality>> = ({
+  toggleModal,
+}) => {
   const search = useSearchParams();
   const { input, handleInput } = useInputValue();
   const memorizedFilter = React.useMemo(

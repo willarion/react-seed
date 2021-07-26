@@ -7,6 +7,7 @@ import { Submenu } from '../../components/Submenu/Submenu';
 import { UserProfile } from '../../models/UserProfile';
 import { PostsContainer } from '../../components/PostsContainer/PostsContainer';
 import { NewMessageModal } from '../../components/NewMessageModal/NewMessageModal';
+import { useModal } from '../../hooks/useModal/useModal';
 
 export interface LoginState {
   user: UserProfile | null;
@@ -16,14 +17,7 @@ export interface LoginState {
 export const HomePage: React.FC = () => {
   const user = useUserProfile();
 
-  const [isOpen, setIsOpen] = React.useState(false);
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
-  const handleSendMessage = () => {
-    toggleModal();
-    // todo send message
-  };
+  const { isOpen, toggleModal, handleSendMessage } = useModal();
 
   return (
     <section>
