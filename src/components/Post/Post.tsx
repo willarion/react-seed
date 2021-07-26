@@ -71,7 +71,7 @@ export const Post: React.FC<PostProps> = ({
             src={`data:text/html;charset=UTF-8;base64,${text}`}
           />
         ) : (
-          <p>{text}...</p>
+          <p>{text}</p>
         )}
       </div>
     </section>
