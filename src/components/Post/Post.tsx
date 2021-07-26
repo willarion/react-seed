@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './Post.module.scss';
+import classNames from 'classnames';
 
 interface PostProps {
   single?: boolean;
@@ -34,6 +36,7 @@ export const Post: React.FC<PostProps> = ({
   id,
 }) => {
   const messageDate = getProperDate(dateAndTime);
+
   return (
     <section className="media">
       <div className="media-body">
@@ -60,7 +63,13 @@ export const Post: React.FC<PostProps> = ({
           </Link>
         </div>
         {single && text ? (
-          <div dangerouslySetInnerHTML={{ __html: text }} />
+          <iframe
+            className={classNames(styles.post__iframe)}
+            title="message-content"
+            allow="fullscreen"
+            scrolling="yes"
+            src={`data:text/html;charset=UTF-8;base64,${text}`}
+          />
         ) : (
           <p>{text}...</p>
         )}

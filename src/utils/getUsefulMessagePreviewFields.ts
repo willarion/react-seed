@@ -1,8 +1,7 @@
 import { GoogleMessage } from '../models/GoogleMessage';
 import { UserPreviewMessage } from '../models/UserPreviewMessage';
 import { find } from 'lodash';
-import { decode } from 'js-base64';
-import DOMPurify from 'dompurify';
+import base64url from 'base64url';
 import he from 'he';
 import { UserFulltextMessage } from '../models/UserFulltextMessage';
 
@@ -42,18 +41,13 @@ export const getUsefullFulltextMessageFields = (
     encodedHTML = body?.data;
   }
 
-  const messageDangerHTML = encodedHTML && decode(encodedHTML);
-  const messageSafeHTML =
-    messageDangerHTML &&
-    DOMPurify.sanitize(messageDangerHTML, {
-      FORCE_BODY: true,
-    });
+  const pureBase64 = encodedHTML && base64url.toBase64(encodedHTML);
 
   return {
     title,
     date,
     from,
     id,
-    html: messageSafeHTML,
+    html: pureBase64,
   };
 };
