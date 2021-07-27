@@ -9,11 +9,8 @@ import { makeGoogleSearchQuery } from '../../utils/makeGoogleSearchQuery';
 import { useSearchParams } from '../../hooks/useSearchParams/useSearchParams';
 import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 import { CreateNewMessageBtn } from '../CreateNewMessageBtn/CreateNewMessageBtn';
-import { ModalFunctionality } from '../../models/ModalFunctionality';
 
-export const PostsContainer: React.FC<Partial<ModalFunctionality>> = ({
-  toggleModal,
-}) => {
+export const PostsContainer: React.FC = ({}) => {
   const search = useSearchParams();
   const { input, handleInput } = useInputValue();
   const memorizedFilter = React.useMemo(
@@ -42,7 +39,7 @@ export const PostsContainer: React.FC<Partial<ModalFunctionality>> = ({
     >
       <div className={classNames(styles.tools)}>
         <Search handleInput={handleInput} input={input} />
-        <CreateNewMessageBtn toggleModal={toggleModal} />
+        <CreateNewMessageBtn pathname={'home/add'} />
         <NavigationButtons
           backButtonStatus={isBackButtonActive}
           onBack={goBack}

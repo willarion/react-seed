@@ -15,6 +15,7 @@ import {
   GoogleLoginResponseOffline,
   GoogleLogout,
 } from 'react-google-login';
+import { NewMessageModal } from './components/NewMessageModal/NewMessageModal';
 
 const initialState: LoginState = { user: null, access: '' };
 
@@ -67,6 +68,11 @@ export const App: React.FC = () => {
               <MessagePage />
             </Route>
             <Redirect from="*" to="/home" />
+          </Switch>
+          <Switch>
+            <Route exact path="/home/add">
+              <NewMessageModal />
+            </Route>
           </Switch>
         </Router>
       </LoginContext.Provider>

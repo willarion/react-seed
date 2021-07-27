@@ -6,8 +6,6 @@ import { ContainerMain } from '../../components/ContainerMain/ContainerMain';
 import { Submenu } from '../../components/Submenu/Submenu';
 import { UserProfile } from '../../models/UserProfile';
 import { PostsContainer } from '../../components/PostsContainer/PostsContainer';
-import { NewMessageModal } from '../../components/NewMessageModal/NewMessageModal';
-import { useModal } from '../../hooks/useModal/useModal';
 
 export interface LoginState {
   user: UserProfile | null;
@@ -17,20 +15,13 @@ export interface LoginState {
 export const HomePage: React.FC = () => {
   const user = useUserProfile();
 
-  const { isOpen, toggleModal, handleSendMessage } = useModal();
-
   return (
     <section>
-      <NewMessageModal
-        open={isOpen}
-        onSend={handleSendMessage}
-        onClose={toggleModal}
-      />
       <Header />
       <Menu />
       <ContainerMain>
         <Submenu />
-        {user && <PostsContainer toggleModal={toggleModal} />}
+        {user && <PostsContainer />}
       </ContainerMain>
     </section>
   );

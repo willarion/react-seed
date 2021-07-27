@@ -2,29 +2,31 @@ import React from 'react';
 import { Portal } from '../Portal/Portal';
 import classNames from 'classnames';
 import styles from './NewMessageModale.module.css';
+import { ModalPath } from '../../models/ModalPath';
+import { useModal } from '../../hooks/useModal/useModal';
 
-interface NewMessageModal {
-  open: boolean;
-  onClose: () => void;
-  onSend: () => void;
-}
+export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
+  const { handleClose, handleSend, preventModalClosing } = useModal(pathname);
 
-export const NewMessageModal: React.FC<NewMessageModal> = ({
-  open,
-  onClose,
-  onSend,
-}) => {
-  return open ? (
+  return (
     <Portal>
-      <div className={classNames(styles.modal__container)}>
-        <div className={classNames(styles.modal_content)}>
+      <div
+        role="none"
+        className={classNames(styles.modal__container)}
+        onClick={handleClose}
+      >
+        <div
+          role="none"
+          onClick={preventModalClosing}
+          className={classNames(styles.modal_content)}
+        >
           <div className={classNames('modal-header', styles.header)}>
             <button
               type="button"
               className="close"
               data-dismiss="modal"
               aria-label="Close"
-              onClick={onClose}
+              onClick={handleClose}
             >
               <span aria-hidden="true">×</span>
             </button>
@@ -51,16 +53,20 @@ export const NewMessageModal: React.FC<NewMessageModal> = ({
               type="button"
               className="btn btn-default"
               data-dismiss="modal"
-              onClick={onClose}
+              onClick={handleClose}
             >
               Cancell
             </button>
-            <button type="button" className="btn btn-primary" onClick={onSend}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSend}
+            >
               Send e-mail
             </button>
           </div>
         </div>
       </div>
     </Portal>
-  ) : null;
+  );
 };

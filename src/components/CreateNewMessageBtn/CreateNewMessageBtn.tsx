@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import styles from './CreateNewMessageBtn.module.css';
-import { ModalFunctionality } from '../../models/ModalFunctionality';
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { ModalPath } from '../../models/ModalPath';
 
-export const CreateNewMessageBtn: React.FC<Partial<ModalFunctionality>> = ({
-  toggleModal,
-}) => {
+export const CreateNewMessageBtn: React.FC<ModalPath> = ({ pathname }) => {
+  const { search } = useLocation();
+  const history = useHistory();
+
+  const handleOpen = useCallback(() => {
+    history.push({
+      pathname,
+      search,
+    });
+  }, [history, pathname, search]);
+
   return (
     <button
-      onClick={toggleModal}
+      onClick={handleOpen}
       type="button"
       className={classNames(styles.compose_button)}
       data-toggle="modal"
