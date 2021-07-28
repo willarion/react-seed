@@ -5,12 +5,12 @@ import './MessagePage.css';
 import { useSingleMessage } from '../../hooks/useSingleMessage/useSingleMessage';
 
 export const MessagePage: React.FC = ({}) => {
-  const { message, token } = useSingleMessage();
+  const { message } = useSingleMessage();
 
   return (
     <section className="message-page">
       <Header />
-      {message && token && (
+      {message && (
         <Post
           single={true}
           key={message.id}

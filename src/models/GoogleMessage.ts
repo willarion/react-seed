@@ -9,7 +9,7 @@ export interface GoogleMessage {
     parts: {
       mimeType: string;
       body: {
-        data?: string;
+        data: string;
       };
       parts?: {
         mimeType: string;
