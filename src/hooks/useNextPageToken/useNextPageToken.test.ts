@@ -26,9 +26,9 @@ describe('hook functions should set proper value to state', () => {
     const { result } = renderHook(() => useNextPageToken());
 
     act(() => {
-      result.current.saveMorePageToken('123456789');
+      result.current.saveLessPageTokens(['0', '1', '2']);
     });
 
-    expect(result.current.pageTokensList).toStrictEqual(['0', '123456789']);
+    expect(result.current.pageTokensList).toStrictEqual(['0', '1', '2']);
   });
 });

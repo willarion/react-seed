@@ -1,6 +1,6 @@
 import { GoogleMessage } from '../models/GoogleMessage';
 import { UserPreviewMessage } from '../models/UserPreviewMessage';
-import { find } from 'lodash';
+import { find, get } from 'lodash';
 import { decode } from 'js-base64';
 import DOMPurify from 'dompurify';
 import he from 'he';
@@ -26,12 +26,12 @@ export const getUsefulMessagePreviewFields = (
 export const getUsefullFulltextMessageFields = (
   message: GoogleMessage,
 ): UserFulltextMessage | null => {
-  if (!message.payload.parts[1].body.data) {
+  if (!get(message, message.payload.parts[1].body.data)) {
     return null;
   }
 
   const { title, date, from, id } = getUsefulMessagePreviewFields(message);
-  const encodedHTML = message.payload.parts[1].body.data;
+  const encodedHTML = get(message, message.payload.parts[1].body.data);
   const messageDangerHTML = decode(encodedHTML);
   const messageSafeHTML = DOMPurify.sanitize(messageDangerHTML, {
     FORCE_BODY: true,
