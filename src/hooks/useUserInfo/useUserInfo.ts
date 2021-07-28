@@ -1,6 +1,6 @@
-import { UserProfile } from '../models/UserProfile';
+import { UserProfile } from '../../models/UserProfile';
 import React from 'react';
-import { LoginState } from '../pages/HomePage/HomePage';
+import { LoginState } from '../../pages/HomePage/HomePage';
 
 function useUserInfo(initialState: LoginState): {
   userInfo: LoginState;

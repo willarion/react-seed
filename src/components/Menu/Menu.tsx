@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuItem } from '../MenuItem/MenuItem';
-import { useMessagesSearchString } from '../../hooks/useSearchParams';
+import { useMessagesSearchString } from '../../hooks/useSearchParams/useSearchParams';
 
 export const Menu: React.FC = ({}) => {
   //todo function toggleNavBar() {}

@@ -8,7 +8,7 @@ export interface GoogleMessage {
     }[];
     parts: {
       body: {
-        data?: string;
+        data: string;
       };
     }[];
   };

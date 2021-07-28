@@ -2,7 +2,7 @@ import React from 'react';
 import { Logo } from '../Logo/Logo';
 import { HeaderBtn } from '../HeaderBtn/HeaderBtn';
 import { UserProfile } from '../UserProfile/UserProfile';
-import useUserProfile from '../../hooks/useUserProfile';
+import useUserProfile from '../../hooks/useUserProfile/useUserProfile';
 
 export const Header: React.FC = () => {
   const user = useUserProfile();

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Post } from '../Post/Post';
-import useMessages from '../../hooks/useMessages';
+import useMessages from '../../hooks/useMessages/useMessages';
 import styles from './PostContainer.module.scss';
 import classNames from 'classnames';
 import { Search } from '../Search/Search';
-import { useInputValue } from '../../hooks/useInputValue';
+import { useInputValue } from '../../hooks/useInputValue/useInputValue';
 import { makeGoogleSearchQuery } from '../../utils/makeGoogleSearchQuery';
-import { useSearchParams } from '../../hooks/useSearchParams';
+import { useSearchParams } from '../../hooks/useSearchParams/useSearchParams';
 import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 
 export const PostsContainer: React.FC = ({}) => {
@@ -30,7 +30,7 @@ export const PostsContainer: React.FC = ({}) => {
   const goBack = () => {
     getPreviousMessagesList(memorizedFilter);
   };
-  const isBackButtonActive = !(pageTokensList.length > 1);
+  const isBackButtonActive = pageTokensList.length < 3;
 
   return (
     <section

@@ -1,6 +1,6 @@
 import React from 'react';
 import { SubmenuBlock } from '../SubmenuBlock/SubmenuBlock';
-import { useMessagesSearchString } from '../../hooks/useSearchParams';
+import { useMessagesSearchString } from '../../hooks/useSearchParams/useSearchParams';
 import { SubmenuItem } from '../SubmenuItem/SubmenuItem';
 
 export const Submenu: React.FC = () => {
