@@ -1,6 +1,6 @@
 import { GoogleMessage } from '../models/GoogleMessage';
 import { UserPreviewMessage } from '../models/UserPreviewMessage';
-import { find } from 'lodash';
+import { find, get } from 'lodash';
 import base64url from 'base64url';
 import he from 'he';
 import { UserFulltextMessage } from '../models/UserFulltextMessage';
@@ -29,16 +29,20 @@ export const getUsefullFulltextMessageFields = (
 
   let encodedHTML;
 
-  const body = find(
-    find(message.payload.parts, { mimeType: 'multipart/alternative' })?.parts,
-    { mimeType: 'text/html' },
-  )?.body;
-
-  if (body) {
-    encodedHTML = body.data;
+  if (get(message, 'payload.body')) {
+    encodedHTML = get(message, 'payload.body.data');
   } else {
-    const body = find(message.payload.parts, { mimeType: 'text/html' })?.body;
-    encodedHTML = body?.data;
+    const body = find(
+      find(message.payload.parts, { mimeType: 'multipart/alternative' })?.parts,
+      { mimeType: 'text/html' },
+    )?.body;
+
+    if (body) {
+      encodedHTML = body.data;
+    } else {
+      const body = find(message.payload.parts, { mimeType: 'text/html' })?.body;
+      encodedHTML = body?.data;
+    }
   }
 
   const pureBase64 = encodedHTML && base64url.toBase64(encodedHTML);
