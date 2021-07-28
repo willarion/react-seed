@@ -11,7 +11,7 @@ export const encodeMessage = ({
   const plainMessage = `To: <${to}>
 Cc: ${copy}
 Bcc: ${secret}
-Subject: ${subject}
+Subject: ${subject ? subject : '(no subject)'}
 
 ${message}`;
 

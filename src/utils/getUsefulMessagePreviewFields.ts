@@ -29,7 +29,7 @@ export const getUsefullFulltextMessageFields = (
 
   let encodedHTML;
 
-  if (get(message, 'payload.body')) {
+  if (get(message, 'payload.body.data')) {
     encodedHTML = get(message, 'payload.body.data');
   } else {
     const body = find(

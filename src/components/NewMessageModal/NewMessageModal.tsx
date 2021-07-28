@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Portal } from '../Portal/Portal';
 import classNames from 'classnames';
 import styles from './NewMessageModale.module.css';
-``;
 import { ModalPath } from '../../models/ModalPath';
 import { useModal } from '../../hooks/useModal/useModal';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -59,6 +58,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               To:
             </label>
             <input
+              readOnly={sending}
               id="email-input"
               type="email"
               className="form-control"
@@ -68,6 +68,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               Cc:
             </label>
             <input
+              readOnly={sending}
               id="copy-input"
               type="email"
               className="form-control"
@@ -77,6 +78,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               Bcc:
             </label>
             <input
+              readOnly={sending}
               id="secret-copy-input"
               type="email"
               className="form-control"
@@ -86,6 +88,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               Subject:
             </label>
             <input
+              readOnly={sending}
               id="subject-input"
               type="text"
               className="form-control"
@@ -98,6 +101,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               id="message-input"
               className="form-control"
               rows={5}
+              disabled={sending}
               {...register('message', { required: true })}
             />
           </div>
@@ -107,6 +111,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               className="btn btn-default"
               data-dismiss="modal"
               onClick={handleClose}
+              disabled={sending}
             >
               Cancell
             </button>
@@ -119,6 +124,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
                 <button
                   type="submit"
                   className={classNames('btn btn-primary', styles.hiddenBtn)}
+                  disabled
                 >
                   Send e-mail
                 </button>
