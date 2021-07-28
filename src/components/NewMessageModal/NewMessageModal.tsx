@@ -16,6 +16,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
   const { register, handleSubmit } = useForm<MessageFormInput>();
   const token = useAuthToken();
 
+  //todo make hook for sending
   const [sending, setSending] = useState(false);
 
   const onSubmit: SubmitHandler<MessageFormInput> = (data) => {
@@ -24,6 +25,12 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
       setSending(false);
       handleSend();
     });
+  };
+
+  const [copiesVisible, setCopiesVisible] = useState(false);
+
+  const toggleCopies = () => {
+    setCopiesVisible(!copiesVisible);
   };
 
   return (
@@ -54,9 +61,12 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
             </h4>
           </div>
           <div className={classNames('modal-body', styles.modal__main)}>
-            <label htmlFor="email-input" className="modal-label">
-              To:
-            </label>
+            <div className={classNames(styles.required)}>
+              <label htmlFor="email-input" className="modal-label">
+                To:
+              </label>
+              <span className={classNames(styles.span)}>required</span>
+            </div>
             <input
               readOnly={sending}
               id="email-input"
@@ -64,26 +74,44 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               className="form-control"
               {...register('to', { required: true })}
             />
-            <label htmlFor="copy-input" className="modal-label">
-              Cc:
-            </label>
-            <input
-              readOnly={sending}
-              id="copy-input"
-              type="email"
-              className="form-control"
-              {...register('copy', { required: false })}
-            />
-            <label htmlFor="copy-input" className="modal-label">
-              Bcc:
-            </label>
-            <input
-              readOnly={sending}
-              id="secret-copy-input"
-              type="email"
-              className="form-control"
-              {...register('secret', { required: false })}
-            />
+            <button
+              onClick={toggleCopies}
+              type="button"
+              className={classNames(styles.showCopyBtn)}
+            >
+              toggle copy fields
+            </button>
+            <div
+              className={classNames(
+                copiesVisible
+                  ? [styles.copies, styles.copies_visible]
+                  : styles.copies,
+              )}
+            >
+              <label
+                htmlFor="copy-input"
+                className={classNames('modal-label', styles.firstCopyField)}
+              >
+                Cc:
+              </label>
+              <input
+                readOnly={sending}
+                id="copy-input"
+                type="email"
+                className="form-control"
+                {...register('copy', { required: false })}
+              />
+              <label htmlFor="copy-input" className="modal-label">
+                Bcc:
+              </label>
+              <input
+                readOnly={sending}
+                id="secret-copy-input"
+                type="email"
+                className="form-control"
+                {...register('secret', { required: false })}
+              />
+            </div>
             <label htmlFor="subject-input" className="modal-label">
               Subject:
             </label>
@@ -94,13 +122,17 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
               className="form-control"
               {...register('subject', { required: false })}
             />
-            <label htmlFor="message-input" className="modal-label">
-              Content:
-            </label>
+            <div className={classNames(styles.required)}>
+              {' '}
+              <label htmlFor="message-input" className="modal-label">
+                Content:
+              </label>
+              <span className={classNames(styles.span)}>required</span>
+            </div>
             <textarea
               id="message-input"
               className="form-control"
-              rows={5}
+              rows={3}
               disabled={sending}
               {...register('message', { required: true })}
             />
