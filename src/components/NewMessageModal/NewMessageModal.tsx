@@ -3,29 +3,12 @@ import { Portal } from '../Portal/Portal';
 import classNames from 'classnames';
 import styles from './NewMessageModale.module.css';
 import { ModalPath } from '../../models/ModalPath';
-import { useModal } from '../../hooks/useModal/useModal';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { MessageFormInput } from '../../models/MessageFormInput';
-import { encodeMessage } from '../../utils/encodeMessage';
-import { sendMessage } from '../../api/api';
-import useAuthToken from '../../hooks/useAuthToken/useAuthToken';
 import { Loader } from '../Loader/Loader';
+import { useSendMessage } from '../../hooks/useSendMessage/useSendMessage';
 
 export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
-  const { handleClose, handleSend, preventModalClosing } = useModal(pathname);
-  const { register, handleSubmit } = useForm<MessageFormInput>();
-  const token = useAuthToken();
-
-  //todo make hook for sending
-  const [sending, setSending] = useState(false);
-
-  const onSubmit: SubmitHandler<MessageFormInput> = (data) => {
-    setSending(true);
-    sendMessage(encodeMessage(data), token).finally(() => {
-      setSending(false);
-      handleSend();
-    });
-  };
+  const { handleClose, preventModalClosing, sending, register, handleSubmit } =
+    useSendMessage(pathname);
 
   const [copiesVisible, setCopiesVisible] = useState(false);
 
@@ -41,7 +24,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
         onClick={handleClose}
       >
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit}
           role="none"
           onClick={preventModalClosing}
           className={classNames(styles.modal_content)}

@@ -81,21 +81,17 @@ export const getMessagesList = async (
   return { messagesList, pageToken };
 };
 
-export const sendMessage = (encodedMessage: string, authToken: string) => {
-  return axios
-    .post(
-      'https://gmail.googleapis.com/gmail/v1/users/me/messages/send',
-      { raw: encodedMessage },
-      {
-        params: {
-          access_token: authToken,
-        },
+export const sendMessage = async (
+  encodedMessage: string,
+  authToken: string,
+): Promise<unknown> => {
+  return await axios.post(
+    'https://gmail.googleapis.com/gmail/v1/users/me/messages/send',
+    { raw: encodedMessage },
+    {
+      params: {
+        access_token: authToken,
       },
-    )
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    },
+  );
 };

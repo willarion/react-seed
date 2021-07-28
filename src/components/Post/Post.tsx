@@ -24,7 +24,10 @@ const getProperDate = (dateString?: string): string => {
   if (!isValidDate(date)) {
     return '';
   }
-  return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+  return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${date
+    .getMinutes()
+    .toString()
+    .padStart(2, '0')}`;
 };
 
 export const Post: React.FC<PostProps> = ({

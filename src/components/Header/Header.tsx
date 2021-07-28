@@ -1,6 +1,5 @@
 import React from 'react';
 import { Logo } from '../Logo/Logo';
-import { HeaderBtn } from '../HeaderBtn/HeaderBtn';
 import { UserProfile } from '../UserProfile/UserProfile';
 import useUserProfile from '../../hooks/useUserProfile/useUserProfile';
 import { GoogleBtns } from '../GoogleBtns/GoogleBtns';
@@ -22,11 +21,9 @@ export const Header: React.FC<DispatchUserInfo> = ({ dispatchUserInfo }) => {
           />
 
           <div className="header-comp pull-right">
-            <HeaderBtn to={'/'} buttonType={'icon-bell'} />
-            <HeaderBtn to={'/'} buttonType={'icon-mail'} />
             <UserProfile
               alt={'userpic'}
-              to={'index.html'}
+              to={'/home'}
               name={user?.name}
               src={
                 user

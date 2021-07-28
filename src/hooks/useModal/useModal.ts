@@ -3,7 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { ModalPath } from '../../models/ModalPath';
 
-export const useModal = (pathname: ModalPath['pathname']) => {
+export const useModal = (
+  pathname: ModalPath['pathname'],
+): {
+  handleClose: () => void;
+  handleSend: () => void;
+  preventModalClosing: (event: React.MouseEvent) => void;
+} => {
   const { search } = useLocation();
   const history = useHistory();
 
