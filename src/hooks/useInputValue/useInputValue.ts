@@ -1,13 +1,19 @@
 import React from 'react';
+import { useSearchParams } from '../useSearchParams/useSearchParams';
 
 export const useInputValue = (): {
   input: string;
   handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  resetInput: () => void;
 } => {
-  const [input, setInput] = React.useState('');
+  const initialValue = useSearchParams().search?.toString() || '';
+  const [input, setInput] = React.useState(initialValue);
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
+  const resetInput = () => {
+    setInput('');
+  };
 
-  return { input, handleInput };
+  return { input, handleInput, resetInput };
 };

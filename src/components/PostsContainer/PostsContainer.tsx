@@ -13,7 +13,7 @@ import { last } from 'lodash';
 
 export const PostsContainer: React.FC = ({}) => {
   const search = useSearchParams();
-  const { input, handleInput } = useInputValue();
+  const { input, handleInput, resetInput } = useInputValue();
   const memorizedFilter = React.useMemo(
     () => makeGoogleSearchQuery(search),
     [search],
@@ -42,7 +42,11 @@ export const PostsContainer: React.FC = ({}) => {
       className={classNames('postsContainer', styles.postsContainer_alone)}
     >
       <div className={classNames(styles.tools)}>
-        <Search handleInput={handleInput} input={input} />
+        <Search
+          resetInput={resetInput}
+          handleInput={handleInput}
+          input={input}
+        />
         <CreateNewMessageBtn pathname={'home/add'} />
       </div>
       {messages.map((message) => (

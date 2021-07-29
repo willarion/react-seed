@@ -27,7 +27,6 @@ function useMessages(filter: string): {
     getMessagesList(token, filter)
       .then(({ messagesList, pageToken }) => {
         setMessages(messagesList);
-        console.log(filter);
         makeNewPageTokensList(pageToken);
       })
       .catch(() => setMessages([]));
@@ -35,7 +34,6 @@ function useMessages(filter: string): {
 
   useEffect(() => {
     getMessages();
-    console.log(filter);
   }, [filter]);
 
   const getNextMessagesList = useCallback(

@@ -1,11 +1,15 @@
 import React from 'react';
 import { MenuItem } from '../MenuItem/MenuItem';
-import { useMessagesSearchString } from '../../hooks/useSearchParams/useSearchParams';
+import {
+  useMessagesSearchString,
+  useResetCategories,
+} from '../../hooks/useSearchParams/useSearchParams';
 
 export const Menu: React.FC = ({}) => {
   //todo function toggleNavBar() {}
   const promotionsSearch = useMessagesSearchString({ category: 'promotions' });
   const socialsSearch = useMessagesSearchString({ category: 'social' });
+  const everyCategorySearch = useResetCategories();
 
   return (
     <nav className="navbar navbar-default navbar-top">
@@ -26,11 +30,18 @@ export const Menu: React.FC = ({}) => {
         </div>
         <div className="collapse navbar-collapse bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
-            <MenuItem to={'/home'} search={promotionsSearch}>
+            <MenuItem
+              to={'/home'}
+              search={promotionsSearch}
+              category="promotions"
+            >
               Promotions
             </MenuItem>
-            <MenuItem to={'/home'} search={socialsSearch}>
+            <MenuItem to={'/home'} search={socialsSearch} category="social">
               Social
+            </MenuItem>
+            <MenuItem to={'/home'} search={everyCategorySearch}>
+              Reset category
             </MenuItem>
           </ul>
         </div>
