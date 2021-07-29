@@ -15,8 +15,8 @@ export const getUsefulMessagePreviewFields = (
 
   return {
     text: text,
-    title,
-    date,
+    title: title ? title : '(no subject)',
+    date: date ? date : 'unknown for some reasons',
     from,
     id: message.id,
   };

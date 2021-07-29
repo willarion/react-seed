@@ -9,6 +9,8 @@ import { makeGoogleSearchQuery } from '../../utils/makeGoogleSearchQuery';
 import { useSearchParams } from '../../hooks/useSearchParams/useSearchParams';
 import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 import { CreateNewMessageBtn } from '../CreateNewMessageBtn/CreateNewMessageBtn';
+import { last } from 'lodash';
+// import { last } from 'lodash';
 
 export const PostsContainer: React.FC = ({}) => {
   const search = useSearchParams();
@@ -31,7 +33,9 @@ export const PostsContainer: React.FC = ({}) => {
   const goBack = () => {
     getPreviousMessagesList(memorizedFilter);
   };
-  const isBackButtonActive = pageTokensList.length < 3;
+
+  const isBackButtonDisabled = pageTokensList.length < 3;
+  const isForwardButtonDisabled = last(pageTokensList) === '';
 
   return (
     <section
@@ -52,7 +56,8 @@ export const PostsContainer: React.FC = ({}) => {
         />
       ))}
       <NavigationButtons
-        backButtonStatus={isBackButtonActive}
+        backButtonStatus={isBackButtonDisabled}
+        forwardButtonStatus={isForwardButtonDisabled}
         onBack={goBack}
         onForward={goForward}
       />

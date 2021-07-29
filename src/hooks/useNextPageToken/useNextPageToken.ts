@@ -1,4 +1,5 @@
 import React from 'react';
+import { last } from 'lodash';
 
 export interface NextPageTokenApi {
   pageTokensList: Array<string>;
@@ -17,6 +18,9 @@ export const useNextPageToken = (): NextPageTokenApi => {
   };
 
   const saveMorePageToken = (apiPageToken: string) => {
+    if (last(pageTokensList) === '') {
+      return;
+    }
     setPageTokensList([...pageTokensList, apiPageToken]);
   };
 
