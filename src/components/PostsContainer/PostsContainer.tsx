@@ -40,11 +40,6 @@ export const PostsContainer: React.FC = ({}) => {
       <div className={classNames(styles.tools)}>
         <Search handleInput={handleInput} input={input} />
         <CreateNewMessageBtn pathname={'home/add'} />
-        <NavigationButtons
-          backButtonStatus={isBackButtonActive}
-          onBack={goBack}
-          onForward={goForward}
-        />
       </div>
       {messages.map((message) => (
         <Post
@@ -56,6 +51,11 @@ export const PostsContainer: React.FC = ({}) => {
           dateAndTime={message.date}
         />
       ))}
+      <NavigationButtons
+        backButtonStatus={isBackButtonActive}
+        onBack={goBack}
+        onForward={goForward}
+      />
     </section>
   );
 };

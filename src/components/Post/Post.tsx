@@ -43,7 +43,7 @@ export const Post: React.FC<PostProps> = ({
   return (
     <section className="media">
       <div className="media-body">
-        <div className="userInfo clearfix">
+        <div className={classNames('userInfo clearfix', styles.post_mainInfo)}>
           <span>From: {user}</span>
           <div className="commentsAndTime pull-right">
             <span>

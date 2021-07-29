@@ -8,3 +8,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 580px) {
+  .tools{
+    flex-direction: column;
+  }
+}

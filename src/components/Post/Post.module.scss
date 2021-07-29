@@ -5,3 +5,10 @@
   margin-bottom: 20px;
   background-color: white;
 }
+
+@media screen and (max-width: 580px) {
+  .post_mainInfo {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

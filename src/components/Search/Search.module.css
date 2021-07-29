@@ -1,0 +1,6 @@
+.searchGroup {
+  width: 245px;
+  height: 34px;
+  display: flex;
+  flex-wrap: nowrap;
+}

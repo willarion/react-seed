@@ -1,6 +1,8 @@
 import React from 'react';
 import { useMessagesSearchString } from '../../hooks/useSearchParams/useSearchParams';
 import { useHistory } from 'react-router';
+import classNames from 'classnames';
+import styles from './Search.module.css';
 
 interface SearchProps {
   input: string;
@@ -22,7 +24,10 @@ export const Search: React.FC<SearchProps> = ({ input, handleInput }) => {
   return (
     <form
       name="search"
-      className="form-inline form-search pull-left"
+      className={classNames(
+        'form-inline form-search pull-left',
+        styles.searchGroup,
+      )}
       onSubmit={handleSubmit}
     >
       <input

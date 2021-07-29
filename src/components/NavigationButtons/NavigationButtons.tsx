@@ -1,4 +1,6 @@
 import React from 'react';
+import styles from './NavigationButtons.module.css';
+import classNames from 'classnames';
 
 interface NavigationButtonsProps {
   onForward: () => void;
@@ -12,7 +14,7 @@ export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   backButtonStatus,
 }) => {
   return (
-    <div className="controlButtons">
+    <div className={classNames('controlButtons', styles.buttons_center)}>
       <button
         onClick={onBack}
         type="button"
