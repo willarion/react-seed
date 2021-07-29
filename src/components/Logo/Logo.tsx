@@ -6,7 +6,6 @@ interface LogoProps {
   mobileImage: string;
   to: string;
   alt: string;
-  pageTitle: string;
 }
 
 export const Logo: React.FC<LogoProps> = ({
@@ -14,7 +13,6 @@ export const Logo: React.FC<LogoProps> = ({
   mobileImage,
   to,
   alt,
-  pageTitle,
 }) => {
   return (
     <div className="logoBlock">
@@ -22,7 +20,6 @@ export const Logo: React.FC<LogoProps> = ({
         <img src={desktopImage} alt={alt} className="logo" title="Logo" />
         <img src={mobileImage} alt={alt} className="logoMobile" />
       </Link>
-      <span>{pageTitle}</span>
     </div>
   );
 };
