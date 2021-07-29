@@ -4,8 +4,12 @@ import { UserPreviewMessage } from '../../models/UserPreviewMessage';
 import useAuthToken from '../useAuthToken/useAuthToken';
 import { useNextPageToken } from '../useNextPageToken/useNextPageToken';
 import { last, initial } from 'lodash';
+import { LoadingHandler } from '../../models/LoadingHandler';
 
-function useMessages(filter: string): {
+function useMessages(
+  filter: string,
+  handleLoading: LoadingHandler['handleLoading'],
+): {
   messages: Array<UserPreviewMessage>;
   pageTokensList: Array<string>;
   getNextMessagesList: (oldFilter: string) => void;
@@ -24,12 +28,14 @@ function useMessages(filter: string): {
   } = useNextPageToken();
 
   const getMessages = useCallback(() => {
+    handleLoading(true);
     getMessagesList(token, filter)
       .then(({ messagesList, pageToken }) => {
         setMessages(messagesList);
         makeNewPageTokensList(pageToken);
       })
-      .catch(() => setMessages([]));
+      .catch(() => setMessages([]))
+      .finally(() => handleLoading(false));
   }, [filter]);
 
   useEffect(() => {
@@ -39,6 +45,7 @@ function useMessages(filter: string): {
   const getNextMessagesList = useCallback(
     async (oldFilter: string) => {
       const nextPageToken = last(pageTokensList);
+      handleLoading(true);
 
       try {
         const { messagesList, pageToken } = await getMessagesList(
@@ -51,6 +58,7 @@ function useMessages(filter: string): {
       } catch (err) {
         setMessages([]);
       }
+      handleLoading(false);
     },
     [pageTokensList, saveMorePageToken, token],
   );
@@ -62,6 +70,7 @@ function useMessages(filter: string): {
       }
       const shorterArray = initial(pageTokensList);
       const previousPageToken = last(initial(shorterArray)); // get penultimate pageToken
+      handleLoading(true);
 
       try {
         const { messagesList } = await getMessagesList(
@@ -74,6 +83,7 @@ function useMessages(filter: string): {
       } catch (err) {
         setMessages([]);
       }
+      handleLoading(false);
     },
     [pageTokensList, saveLessPageTokens, token],
   );

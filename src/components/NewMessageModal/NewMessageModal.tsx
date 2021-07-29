@@ -143,7 +143,7 @@ export const NewMessageModal: React.FC<ModalPath> = ({ pathname }) => {
                 >
                   Send e-mail
                 </button>
-                <Loader />
+                <Loader small={true} />
               </>
             )}
           </div>

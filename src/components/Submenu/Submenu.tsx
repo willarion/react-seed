@@ -25,7 +25,7 @@ export const Submenu: React.FC = () => {
           Starred
         </SubmenuItem>
         <SubmenuItem to={'/home'} search={everyLabelSearch}>
-          Reset folder
+          All folders
         </SubmenuItem>
       </SubmenuBlock>
     </aside>

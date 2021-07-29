@@ -10,6 +10,8 @@ import { useSearchParams } from '../../hooks/useSearchParams/useSearchParams';
 import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 import { CreateNewMessageBtn } from '../CreateNewMessageBtn/CreateNewMessageBtn';
 import { last } from 'lodash';
+import { useLoading } from '../../hooks/useLoading/useLoading';
+import { Loader } from '../Loader/Loader';
 
 export const PostsContainer: React.FC = ({}) => {
   const search = useSearchParams();
@@ -18,6 +20,7 @@ export const PostsContainer: React.FC = ({}) => {
     () => makeGoogleSearchQuery(search),
     [search],
   );
+  const { isLoading, handleLoading } = useLoading();
 
   const {
     messages,
@@ -25,7 +28,7 @@ export const PostsContainer: React.FC = ({}) => {
     getNextMessagesList,
     getPreviousMessagesList,
     deletePost,
-  } = useMessages(memorizedFilter);
+  } = useMessages(memorizedFilter, handleLoading);
 
   const goForward = () => {
     getNextMessagesList(memorizedFilter);
@@ -49,17 +52,23 @@ export const PostsContainer: React.FC = ({}) => {
         />
         <CreateNewMessageBtn pathname={'home/add'} />
       </div>
-      {messages.map((message) => (
-        <Post
-          key={message.id}
-          id={message.id}
-          user={message.from}
-          title={message.title}
-          text={message.text}
-          dateAndTime={message.date}
-          onPostDelete={deletePost}
-        />
-      ))}
+      <div className={classNames(styles.main)}>
+        {isLoading ? (
+          <Loader small={false} />
+        ) : (
+          messages.map((message) => (
+            <Post
+              key={message.id}
+              id={message.id}
+              user={message.from}
+              title={message.title}
+              text={message.text}
+              dateAndTime={message.date}
+              onPostDelete={deletePost}
+            />
+          ))
+        )}
+      </div>
       <NavigationButtons
         backButtonStatus={isBackButtonDisabled}
         forwardButtonStatus={isForwardButtonDisabled}

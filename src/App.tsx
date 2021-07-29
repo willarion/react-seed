@@ -47,7 +47,6 @@ export const App: React.FC = () => {
             <Route
               render={({ location }) => {
                 const { key } = location;
-
                 return (
                   <TransitionGroup component={null}>
                     <CSSTransition

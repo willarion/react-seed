@@ -41,7 +41,7 @@ export const Menu: React.FC = ({}) => {
               Social
             </MenuItem>
             <MenuItem to={'/home'} search={everyCategorySearch}>
-              Reset category
+              All categories
             </MenuItem>
           </ul>
         </div>
