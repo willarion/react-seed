@@ -14,6 +14,9 @@ import { Header } from './components/Header/Header';
 import { Menu } from './components/Menu/Menu';
 import { Submenu } from './components/Submenu/Submenu';
 import { ContainerMain } from './components/ContainerMain/ContainerMain';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import classNames from 'classnames';
+import styles from './styles/modal_animation.module.css';
 
 export const initialState: LoginState = { user: null, access: '' };
 
@@ -40,11 +43,33 @@ export const App: React.FC = () => {
               </Route>
               <Redirect from="*" to="/home" />
             </Switch>
-            <Switch>
-              <Route exact path="/home/add">
-                <NewMessageModal />
-              </Route>
-            </Switch>
+
+            <Route
+              render={({ location }) => {
+                const { key } = location;
+
+                return (
+                  <TransitionGroup component={null}>
+                    <CSSTransition
+                      timeout={500}
+                      classNames={{
+                        enterActive: classNames(styles.portal_enter_active),
+                        exitActive: classNames(styles.portal_exit_active),
+                      }}
+                      key={key}
+                    >
+                      <Switch location={location}>
+                        <Route
+                          exact
+                          path="/home/add"
+                          render={() => <NewMessageModal />}
+                        />
+                      </Switch>
+                    </CSSTransition>
+                  </TransitionGroup>
+                );
+              }}
+            />
           </ContainerMain>
         </Router>
       </LoginContext.Provider>

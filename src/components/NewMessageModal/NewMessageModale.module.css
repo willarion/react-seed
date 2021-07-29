@@ -1,3 +1,12 @@
+@keyframes portal_fall {
+  0% {
+    transform: translateY(-15%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .modal__container {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -26,6 +35,7 @@
   transition: height 0.1s ease;
   padding-top: 0;
   padding-bottom: 0;
+  animation: portal_fall 0.3s;
 }
 
 .header {

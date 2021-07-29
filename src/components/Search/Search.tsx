@@ -32,14 +32,17 @@ export const Search: React.FC<SearchProps> = ({ input, handleInput }) => {
     >
       <input
         onChange={handleInput}
-        className="form-control"
+        className={classNames('form-control', styles.searchInput)}
         type="text"
         value={input}
         name="search"
         placeholder="Search..."
       />
-      <button type="submit" className="btn btn-search">
-        <i className="icon-search" />
+      <button
+        type="submit"
+        className={classNames('btn btn-search', styles.searchBtn)}
+      >
+        <i className={classNames('icon-search')} />
       </button>
     </form>
   );

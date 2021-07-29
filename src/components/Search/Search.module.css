@@ -3,4 +3,19 @@
   height: 34px;
   display: flex;
   flex-wrap: nowrap;
+  position: relative;
+}
+
+.searchInput {
+  width: 100% !important;
+}
+
+.searchBtn {
+  background: transparent;
+  color: #99a1b3;
+  font-size: 1.5em;
+  align-self: center;
+  padding: 0;
+  position: absolute;
+  right: 0;
 }
