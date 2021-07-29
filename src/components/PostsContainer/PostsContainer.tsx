@@ -10,7 +10,6 @@ import { useSearchParams } from '../../hooks/useSearchParams/useSearchParams';
 import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
 import { CreateNewMessageBtn } from '../CreateNewMessageBtn/CreateNewMessageBtn';
 import { last } from 'lodash';
-// import { last } from 'lodash';
 
 export const PostsContainer: React.FC = ({}) => {
   const search = useSearchParams();
@@ -25,6 +24,7 @@ export const PostsContainer: React.FC = ({}) => {
     pageTokensList,
     getNextMessagesList,
     getPreviousMessagesList,
+    deletePost,
   } = useMessages(memorizedFilter);
 
   const goForward = () => {
@@ -53,6 +53,7 @@ export const PostsContainer: React.FC = ({}) => {
           title={message.title}
           text={message.text}
           dateAndTime={message.date}
+          onPostDelete={deletePost}
         />
       ))}
       <NavigationButtons

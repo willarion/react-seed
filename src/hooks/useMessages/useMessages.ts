@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getMessagesList } from '../../api/api';
+import { deleteMessage, getMessagesList } from '../../api/api';
 import { UserPreviewMessage } from '../../models/UserPreviewMessage';
 import useAuthToken from '../useAuthToken/useAuthToken';
 import { useNextPageToken } from '../useNextPageToken/useNextPageToken';
@@ -10,6 +10,7 @@ function useMessages(filter: string): {
   pageTokensList: Array<string>;
   getNextMessagesList: (oldFilter: string) => void;
   getPreviousMessagesList: (oldFilter: string) => void;
+  deletePost: (id: string) => void;
 } {
   const token = useAuthToken();
 
@@ -22,13 +23,19 @@ function useMessages(filter: string): {
     saveMorePageToken,
   } = useNextPageToken();
 
-  useEffect(() => {
+  const getMessages = useCallback(() => {
     getMessagesList(token, filter)
       .then(({ messagesList, pageToken }) => {
         setMessages(messagesList);
+        console.log(filter);
         makeNewPageTokensList(pageToken);
       })
       .catch(() => setMessages([]));
+  }, [filter]);
+
+  useEffect(() => {
+    getMessages();
+    console.log(filter);
   }, [filter]);
 
   const getNextMessagesList = useCallback(
@@ -73,11 +80,17 @@ function useMessages(filter: string): {
     [pageTokensList, saveLessPageTokens, token],
   );
 
+  const deleteCard = useCallback(async (id) => {
+    await deleteMessage(id, token);
+    getMessages();
+  }, []);
+
   return {
     messages,
     pageTokensList,
     getNextMessagesList,
     getPreviousMessagesList,
+    deletePost: deleteCard,
   };
 }
 

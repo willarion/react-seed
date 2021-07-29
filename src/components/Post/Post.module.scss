@@ -6,6 +6,15 @@
   background-color: white;
 }
 
+.deleteBtn {
+  background: none;
+  border: none;
+  color: rgba(51, 122, 183, 0.73);
+  margin-right: 15px;
+  background-color: #99a1b317;
+  padding: 0 3px;
+}
+
 @media screen and (max-width: 580px) {
   .post_mainInfo {
     display: flex;

@@ -10,6 +10,7 @@ interface PostProps {
   text?: string;
   dateAndTime?: string;
   id: string;
+  onPostDelete?: (id: string) => void;
 }
 
 const isValidDate = (date: Date): boolean => {
@@ -37,8 +38,15 @@ export const Post: React.FC<PostProps> = ({
   title,
   dateAndTime,
   id,
+  onPostDelete,
 }) => {
   const messageDate = getProperDate(dateAndTime);
+
+  const deletePost = () => {
+    if (onPostDelete) {
+      onPostDelete(id);
+    }
+  };
 
   return (
     <section className="media">
@@ -46,6 +54,13 @@ export const Post: React.FC<PostProps> = ({
         <div className={classNames('userInfo clearfix', styles.post_mainInfo)}>
           <span>From: {user}</span>
           <div className="commentsAndTime pull-right">
+            <button
+              type="button"
+              className={classNames(styles.deleteBtn)}
+              onClick={deletePost}
+            >
+              delete
+            </button>
             <span>
               <i className="icon-clock" />
               <time className="timeago" dateTime={messageDate} />
