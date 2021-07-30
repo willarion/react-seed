@@ -3,6 +3,7 @@ import {
   GoogleLoginResponseOffline,
 } from 'react-google-login';
 import { DispatchUserInfo } from '../../models/DispatchUserInfo';
+import { useHistory } from 'react-router';
 
 export const useGoogleLogin = (
   dispatchUserInfo: DispatchUserInfo['dispatchUserInfo'],
@@ -12,6 +13,8 @@ export const useGoogleLogin = (
   ) => void;
   googleLogout: () => void;
 } => {
+  const history = useHistory();
+
   const googleLogin = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
   ) => {
@@ -26,6 +29,7 @@ export const useGoogleLogin = (
 
   const googleLogout = () => {
     dispatchUserInfo({ type: 'delete', user: null, access: '' });
+    history.push('/home');
   };
 
   return { googleLogin, googleLogout };
