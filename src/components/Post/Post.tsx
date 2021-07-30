@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './Post.module.scss';
 import classNames from 'classnames';
 
@@ -40,6 +40,8 @@ export const Post: React.FC<PostProps> = ({
   id,
   onPostDelete,
 }) => {
+  const { search } = useLocation();
+
   const messageDate = getProperDate(dateAndTime);
 
   const deletePost = () => {
@@ -72,6 +74,7 @@ export const Post: React.FC<PostProps> = ({
           <Link
             to={{
               pathname: '/message',
+              search,
               state: id,
             }}
             className="media-heading"

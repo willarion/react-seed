@@ -30,7 +30,7 @@ export const useSingleMessage = (
         .catch((error) => console.log(error))
         .finally(() => handleLoading(false));
     }
-  }, [id, token]);
+  }, [id, token, handleLoading]);
 
   return { message, token };
 };
