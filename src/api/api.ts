@@ -27,12 +27,13 @@ export const getMessages = async (
       },
     },
   );
-
-  const messages = data.messages.map((item: { id: string; thread: string }) => {
-    return item.id;
-  });
-
   const pageToken = data.nextPageToken ? data.nextPageToken : '';
+
+  const messages = data.messages
+    ? data.messages.map((item: { id: string; thread: string }) => {
+        return item.id;
+      })
+    : [];
 
   return { messages, pageToken };
 };

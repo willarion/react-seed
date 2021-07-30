@@ -29,6 +29,7 @@ function useMessages(
 
   const getMessages = useCallback(() => {
     handleLoading(true);
+
     getMessagesList(token, filter)
       .then(({ messagesList, pageToken }) => {
         setMessages(messagesList);
