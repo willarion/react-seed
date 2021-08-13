@@ -1,0 +1,22 @@
+.postsContainer_alone {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main {
+  margin-top: 15px;
+  min-height: 260px;
+  position: relative;
+}
+
+@media screen and (max-width: 580px) {
+  .tools{
+    flex-direction: column;
+  }
+}

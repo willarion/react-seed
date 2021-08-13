@@ -1,11 +1,28 @@
 import React from 'react';
-import { Button } from '../../components/Button/Button';
+import useUserProfile from '../../hooks/useUserProfile/useUserProfile';
+// import { Header } from '../../components/Header/Header';
+// import { Menu } from '../../components/Menu/Menu';
+// import { ContainerMain } from '../../components/ContainerMain/ContainerMain';
+// import { Submenu } from '../../components/Submenu/Submenu';
+import { UserProfile } from '../../models/UserProfile';
+import { PostsContainer } from '../../components/PostsContainer/PostsContainer';
+
+export interface LoginState {
+  user: UserProfile | null;
+  access: string;
+}
 
 export const HomePage: React.FC = () => {
+  const user = useUserProfile();
+
   return (
     <section>
-      It works
-      <Button styleType="primary">Ok!</Button>
+      {/*<Header />*/}
+      {/*<Menu />*/}
+      {/*<ContainerMain>*/}
+      {/*  <Submenu />*/}
+      {user && <PostsContainer />}
+      {/*</ContainerMain>*/}
     </section>
   );
 };
