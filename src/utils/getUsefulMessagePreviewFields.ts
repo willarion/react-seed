@@ -1,8 +1,7 @@
 import { GoogleMessage } from '../models/GoogleMessage';
 import { UserPreviewMessage } from '../models/UserPreviewMessage';
 import { find, get } from 'lodash';
-import { decode } from 'js-base64';
-import DOMPurify from 'dompurify';
+import base64url from 'base64url';
 import he from 'he';
 import { UserFulltextMessage } from '../models/UserFulltextMessage';
 
@@ -16,8 +15,8 @@ export const getUsefulMessagePreviewFields = (
 
   return {
     text: text,
-    title,
-    date,
+    title: title ? title : '(no subject)',
+    date: date ? date : 'unknown for some reasons',
     from,
     id: message.id,
   };
@@ -26,22 +25,33 @@ export const getUsefulMessagePreviewFields = (
 export const getUsefullFulltextMessageFields = (
   message: GoogleMessage,
 ): UserFulltextMessage | null => {
-  if (!get(message, message.payload.parts[1].body.data)) {
-    return null;
+  const { title, date, from, id } = getUsefulMessagePreviewFields(message);
+
+  let encodedHTML;
+
+  if (get(message, 'payload.body.data')) {
+    encodedHTML = get(message, 'payload.body.data');
+  } else {
+    const body = find(
+      find(message.payload.parts, { mimeType: 'multipart/alternative' })?.parts,
+      { mimeType: 'text/html' },
+    )?.body;
+
+    if (body) {
+      encodedHTML = body.data;
+    } else {
+      const body = find(message.payload.parts, { mimeType: 'text/html' })?.body;
+      encodedHTML = body?.data;
+    }
   }
 
-  const { title, date, from, id } = getUsefulMessagePreviewFields(message);
-  const encodedHTML = get(message, message.payload.parts[1].body.data);
-  const messageDangerHTML = decode(encodedHTML);
-  const messageSafeHTML = DOMPurify.sanitize(messageDangerHTML, {
-    FORCE_BODY: true,
-  });
+  const pureBase64 = encodedHTML && base64url.toBase64(encodedHTML);
 
   return {
     title,
     date,
     from,
     id,
-    html: messageSafeHTML,
+    html: pureBase64,
   };
 };

@@ -4,8 +4,11 @@ import useAuthToken from '../useAuthToken/useAuthToken';
 import { getMessageContent } from '../../api/api';
 import { getUsefullFulltextMessageFields } from '../../utils/getUsefulMessagePreviewFields';
 import { UserFulltextMessage } from '../../models/UserFulltextMessage';
+import { LoadingHandler } from '../../models/LoadingHandler';
 
-export const useSingleMessage = (): {
+export const useSingleMessage = (
+  handleLoading: LoadingHandler['handleLoading'],
+): {
   message: UserFulltextMessage | null;
   token: string;
 } => {
@@ -19,11 +22,13 @@ export const useSingleMessage = (): {
 
   React.useEffect(() => {
     if (token !== '') {
-      getMessageContent(id, token).then((res) => {
-        if (res.payload.parts[1].body.data) {
+      handleLoading(true);
+      getMessageContent(id, token)
+        .then((res) => {
           setMessage(getUsefullFulltextMessageFields(res));
-        }
-      });
+        })
+        .catch((error) => console.log(error))
+        .finally(() => handleLoading(false));
     }
   }, [id, token]);
 

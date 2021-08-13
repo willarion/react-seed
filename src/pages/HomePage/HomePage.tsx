@@ -1,9 +1,9 @@
 import React from 'react';
 import useUserProfile from '../../hooks/useUserProfile/useUserProfile';
-import { Header } from '../../components/Header/Header';
-import { Menu } from '../../components/Menu/Menu';
-import { ContainerMain } from '../../components/ContainerMain/ContainerMain';
-import { Submenu } from '../../components/Submenu/Submenu';
+// import { Header } from '../../components/Header/Header';
+// import { Menu } from '../../components/Menu/Menu';
+// import { ContainerMain } from '../../components/ContainerMain/ContainerMain';
+// import { Submenu } from '../../components/Submenu/Submenu';
 import { UserProfile } from '../../models/UserProfile';
 import { PostsContainer } from '../../components/PostsContainer/PostsContainer';
 
@@ -14,14 +14,15 @@ export interface LoginState {
 
 export const HomePage: React.FC = () => {
   const user = useUserProfile();
+
   return (
     <section>
-      <Header />
-      <Menu />
-      <ContainerMain>
-        <Submenu />
-        {user && <PostsContainer />}
-      </ContainerMain>
+      {/*<Header />*/}
+      {/*<Menu />*/}
+      {/*<ContainerMain>*/}
+      {/*  <Submenu />*/}
+      {user && <PostsContainer />}
+      {/*</ContainerMain>*/}
     </section>
   );
 };

@@ -80,3 +80,32 @@ export const getMessagesList = async (
 
   return { messagesList, pageToken };
 };
+
+export const sendMessage = async (
+  encodedMessage: string,
+  authToken: string,
+): Promise<unknown> => {
+  return await axios.post(
+    'https://gmail.googleapis.com/gmail/v1/users/me/messages/send',
+    { raw: encodedMessage },
+    {
+      params: {
+        access_token: authToken,
+      },
+    },
+  );
+};
+
+export const deleteMessage = async (
+  messageId: string,
+  authToken: string,
+): Promise<unknown> => {
+  return await axios.delete(
+    `https://gmail.googleapis.com/gmail/v1/users/me/messages/${messageId}?`,
+    {
+      params: {
+        access_token: authToken,
+      },
+    },
+  );
+};
