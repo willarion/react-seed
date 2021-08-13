@@ -37,7 +37,7 @@ function useMessages(
       })
       .catch(() => setMessages([]))
       .finally(() => handleLoading(false));
-  }, [filter]);
+  }, [filter, handleLoading, makeNewPageTokensList, token]);
 
   useEffect(() => {
     getMessages();
@@ -61,7 +61,7 @@ function useMessages(
       }
       handleLoading(false);
     },
-    [pageTokensList, saveMorePageToken, token],
+    [pageTokensList, saveMorePageToken, token, handleLoading],
   );
 
   const getPreviousMessagesList = useCallback(
@@ -86,13 +86,16 @@ function useMessages(
       }
       handleLoading(false);
     },
-    [pageTokensList, saveLessPageTokens, token],
+    [pageTokensList, saveLessPageTokens, token, handleLoading],
   );
 
-  const deleteCard = useCallback(async (id) => {
-    await deleteMessage(id, token);
-    getMessages();
-  }, []);
+  const deleteCard = useCallback(
+    async (id) => {
+      await deleteMessage(id, token);
+      getMessages();
+    },
+    [getMessages, token],
+  );
 
   return {
     messages,

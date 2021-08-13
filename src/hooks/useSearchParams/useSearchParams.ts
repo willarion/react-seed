@@ -40,7 +40,7 @@ export const useResetSearch = (): string => {
   const currentParams = useSearchParams();
   const onlyLabes = {
     label: currentParams.label,
-    categories: currentParams.categories,
+    categories: currentParams.category,
   };
   return queryString.stringify(onlyLabes);
 };
