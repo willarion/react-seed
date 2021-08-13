@@ -38,7 +38,8 @@ export const PostsContainer: React.FC = ({}) => {
   };
 
   const isBackButtonDisabled = pageTokensList.length < 3;
-  const isForwardButtonDisabled = last(pageTokensList) === '';
+  const isForwardButtonDisabled =
+    last(pageTokensList) === '' || last(pageTokensList) === '0';
 
   return (
     <section
